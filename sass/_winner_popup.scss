@@ -1,0 +1,20 @@
+.popup-background {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -300px;
+  left: 0;
+  bottom: -300px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.winner-popup {
+  position: absolute;
+  background: #ffffff;
+  padding: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #2db4ff;
+}
+

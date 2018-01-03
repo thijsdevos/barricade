@@ -1,0 +1,23 @@
+.setup {
+  margin: 50px;
+}
+
+.setup_row {
+  padding: 10px;
+}
+
+.setup_input {
+  padding: 5px 10px 5px 0;
+  border: 0;
+  border-bottom: 1px solid grey;
+}
+
+.setup_button {
+  padding: 7px 10px;
+  background: #2db4ff;
+  color: #ffffff;
+  cursor: pointer;
+  &:hover {
+    background: #0b47f1;
+  }
+}

@@ -1,0 +1,33 @@
+body {
+  font-family: Arial;
+  font-size: 16px;
+}
+
+input, textarea {
+  font-family: Arial;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+  }
+}
+
+.game {
+  width: 670px;
+  position: relative;
+}
+
+.board {
+  position: relative;
+}
+
+.status {
+  position: absolute;
+  top: 100px;
+  right: -220px;
+  padding: 20px;
+  font-size: 0.9em;
+}

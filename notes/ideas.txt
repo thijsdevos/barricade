@@ -1,0 +1,76 @@
+
+Server en client krijgen zelfde gedeelde store/state structuur en via websockets ga ik deze synchroniseren.
+
+De state wordt per spel aangemaakt op de server:
+
+Games [
+	Game {
+		// zelfde als game client
+		
+	}
+]
+
+AI []
+Points []
+
+Client:
+
+Game {
+	id: int
+	
+	Board {
+		Turn {
+			'whos_turn': 'red',
+			'action': 'throw', // 
+			'thrown': int,
+			'history': [] // history of throwns
+		}
+		Pawns {
+			'red': [0: '0,0', //etc]
+		}
+	}
+
+	Players {
+		'red': Player {
+			
+		}
+	}
+}
+
+
+
+Client:
+	Player
+		events:
+		throw, select pawn, select point, (... select blockade) (... if thrown 6 repeat)
+
+	Turn // all actions concerning what players do in the game
+		selectPawn()
+		putPawn(
+			// check for number of thrown sixes and handle that
+		)
+		selectBlockade()
+		putBlockade()
+
+		dearGodItsANuke()
+		dearGodYourGoingHome()
+		dearGodWhereGoingHome()		
+		
+
+	Points [ // array of all the points in the game so the html can be build from it
+	    0: ['0-2','0-4'], //etc rij 0 
+	    1: ['1-1','1-2'] // etc rij 1
+	]		
+		
+	Board { turn: 'red' } 
+		Pawns { 'red': [0: '0;0'], [1: '1;2'], 'blue': [] }
+		Dice { thrown: int, history: [] // history of throwns for the special rules concerning throws of 6 empties after  }
+
+Server:
+
+	Board // zelfde als client boord
+		getPossibilities('point_id')
+
+	AI { 'type' // friendly, winner, psycho }
+		
+			

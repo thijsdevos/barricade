@@ -1,0 +1,263 @@
+.row {
+  position: relative;
+  height: 42px;
+}
+
+.row:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+[row_id="12"] .point,
+[row_id="10"] .point,
+[row_id="8"] .point,
+[row_id="6"] .point,
+[row_id="4"] .point,
+[row_id="2"] .point,
+[row_id="0"] .point {
+  position: absolute;
+}
+
+[row_id="5"] .point:first-child {
+  margin-left: 36%;
+}
+
+[row_id="7"] .point:first-child {
+  margin-left: 24%;
+}
+
+[row_id="9"] .point:first-child {
+  margin-left: 12%;
+}
+
+.point {
+  border: 1px solid #888888;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  float: left;
+  margin: 0 10px 10px 0;
+}
+
+.point {
+  &.--puttable {
+    border-style: dotted;
+    background: ivory;
+    cursor: pointer;
+    &:hover {
+      background: darken(ivory, 10%);
+    }
+  }
+
+  &.--puttable-barricade {
+    //background: black;
+    cursor: pointer;
+    border: 3px dotted #000000;
+    &:hover {
+      //background: lighten(black, 20%);
+    }
+  }
+
+  &.--blocked {
+    background: #888888;
+  }
+
+  &.--filled {
+    border: 0;
+  }
+
+  &.--picked {
+    border: 3px solid #000000;
+  }
+
+  &.--puttable {
+    border: 3px solid #000000;
+  }
+
+  &.--blocked.--puttable {
+    background: #cccccc;
+    &:hover {
+      background: darken(#cccccc, 10%);
+    }
+  }
+
+  &.--pickable {
+    cursor: pointer;
+  }
+
+  &.--red {
+    //border-color: red;
+    background: red;
+  }
+
+  &.--pickable.--red:hover {
+    background: lighten(red, 20%);
+  }
+
+  &.--puttable.--red {
+    background: lighten(red, 30%);
+  }
+
+  &.--yellow {
+    //border-color: yellow;
+    background: yellow;
+  }
+
+  &.--pickable.--yellow:hover {
+    background: darken(yellow, 20%);
+  }
+
+  &.--puttable.--yellow {
+    background: lighten(yellow, 30%);
+  }
+
+  &.--green {
+    //border-color: green;
+    background: green;
+  }
+
+  &.--pickable.--green:hover {
+    background: lighten(green, 20%);
+  }
+
+  &.--puttable.--green {
+    background: lighten(green, 30%);
+  }
+
+  &.--blue {
+    //border-color: blue;
+    background: blue;
+  }
+
+  &.--pickable.--blue:hover {
+    background: lighten(blue, 20%);
+  }
+
+  &.--puttable.--blue {
+    background: lighten(blue, 30%);
+  }
+}
+
+/*
+.point[player_id="0"]:hover {
+  border: 2px solid red;
+}
+
+.point[player_id="1"]:hover {
+  border: 2px solid green;
+}
+
+.point[player_id="2"]:hover {
+  border: 2px solid yellow;
+}
+
+.point[player_id="3"]:hover {
+  border: 2px solid blue;
+}
+*/
+
+.point.--filled[player_id="0"] {
+  background: red;
+}
+
+.point.--filled[player_id="1"] {
+  background: green;
+}
+
+.point.--filled[player_id="2"] {
+  background: yellow;
+}
+
+.point.--filled[player_id="3"] {
+  background: blue;
+}
+
+.point span {
+  /*display: none;*/
+  font-size: 0.8em;
+  padding: 6px 0 0;
+  display: block;
+  text-align: center;
+}
+
+[point_id="12,0"] {
+  left: 0;
+}
+
+[point_id="12,4"] {
+  left: 25%;
+  transform: translateX(-25%);
+}
+
+[point_id="12,8"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[point_id="12,12"] {
+  left: 75%;
+  transform: translateX(-75%);
+}
+
+[point_id="12,16"] {
+  right: 0;
+}
+
+[point_id="10,2"] {
+  left: 12.5%;
+  transform: translateX(-12.5%);
+}
+
+[point_id="10,6"] {
+  left: 37.5%;
+  transform: translateX(-37.5%);
+}
+
+[point_id="10,10"] {
+  left: 62.5%;
+  transform: translateX(-62.5%);
+}
+
+[point_id="10,14"] {
+  left: 87.5%;
+  transform: translateX(-87.5%);
+}
+
+[point_id="8,4"] {
+  left: 25%;
+  transform: translateX(-25%);
+}
+
+[point_id="8,12"] {
+  left: 75%;
+  transform: translateX(-75%);
+}
+
+[point_id="6,6"] {
+  left: 37.5%;
+  transform: translateX(-37.5%);
+}
+
+[point_id="6,10"] {
+  left: 62.5%;
+  transform: translateX(-62.5%);
+}
+
+[point_id="4,8"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[point_id="2,16"] {
+  right: 0;
+}
+
+[point_id="0,8"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.row .point:last-child {
+  margin-right: 0;
+}

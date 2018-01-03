@@ -1,0 +1,347 @@
+body {
+  font-family: Arial;
+  font-size: 16px; }
+
+input, textarea {
+  font-family: Arial;
+  font-size: 16px; }
+
+* {
+  box-sizing: border-box; }
+  *:focus {
+    outline: none; }
+
+.game {
+  width: 670px;
+  position: relative; }
+
+.board {
+  position: relative; }
+
+.status {
+  position: absolute;
+  top: 100px;
+  right: -220px;
+  padding: 20px;
+  font-size: 0.9em; }
+
+.row {
+  position: relative;
+  height: 42px; }
+
+.row:after {
+  content: '';
+  display: block;
+  clear: both; }
+
+[row_id="12"] .point,
+[row_id="10"] .point,
+[row_id="8"] .point,
+[row_id="6"] .point,
+[row_id="4"] .point,
+[row_id="2"] .point,
+[row_id="0"] .point {
+  position: absolute; }
+
+[row_id="5"] .point:first-child {
+  margin-left: 36%; }
+
+[row_id="7"] .point:first-child {
+  margin-left: 24%; }
+
+[row_id="9"] .point:first-child {
+  margin-left: 12%; }
+
+.point {
+  border: 1px solid #888888;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  float: left;
+  margin: 0 10px 10px 0; }
+
+.point.\--puttable {
+  border-style: dotted;
+  background: ivory;
+  cursor: pointer; }
+  .point.\--puttable:hover {
+    background: #ffffbd; }
+
+.point.\--puttable-barricade {
+  cursor: pointer;
+  border: 3px dotted #000000; }
+
+.point.\--blocked {
+  background: #888888; }
+
+.point.\--filled {
+  border: 0; }
+
+.point.\--picked {
+  border: 3px solid #000000; }
+
+.point.\--puttable {
+  border: 3px solid #000000; }
+
+.point.\--blocked.\--puttable {
+  background: #cccccc; }
+  .point.\--blocked.\--puttable:hover {
+    background: #b3b3b3; }
+
+.point.\--pickable {
+  cursor: pointer; }
+
+.point.\--red {
+  background: red; }
+
+.point.\--pickable.\--red:hover {
+  background: #ff6666; }
+
+.point.\--puttable.\--red {
+  background: #ff9999; }
+
+.point.\--yellow {
+  background: yellow; }
+
+.point.\--pickable.\--yellow:hover {
+  background: #999900; }
+
+.point.\--puttable.\--yellow {
+  background: #ffff99; }
+
+.point.\--green {
+  background: green; }
+
+.point.\--pickable.\--green:hover {
+  background: #00e600; }
+
+.point.\--puttable.\--green {
+  background: #1aff1a; }
+
+.point.\--blue {
+  background: blue; }
+
+.point.\--pickable.\--blue:hover {
+  background: #6666ff; }
+
+.point.\--puttable.\--blue {
+  background: #9999ff; }
+
+/*
+.point[player_id="0"]:hover {
+  border: 2px solid red;
+}
+
+.point[player_id="1"]:hover {
+  border: 2px solid green;
+}
+
+.point[player_id="2"]:hover {
+  border: 2px solid yellow;
+}
+
+.point[player_id="3"]:hover {
+  border: 2px solid blue;
+}
+*/
+.point.\--filled[player_id="0"] {
+  background: red; }
+
+.point.\--filled[player_id="1"] {
+  background: green; }
+
+.point.\--filled[player_id="2"] {
+  background: yellow; }
+
+.point.\--filled[player_id="3"] {
+  background: blue; }
+
+.point span {
+  /*display: none;*/
+  font-size: 0.8em;
+  padding: 6px 0 0;
+  display: block;
+  text-align: center; }
+
+[point_id="12,0"] {
+  left: 0; }
+
+[point_id="12,4"] {
+  left: 25%;
+  transform: translateX(-25%); }
+
+[point_id="12,8"] {
+  left: 50%;
+  transform: translateX(-50%); }
+
+[point_id="12,12"] {
+  left: 75%;
+  transform: translateX(-75%); }
+
+[point_id="12,16"] {
+  right: 0; }
+
+[point_id="10,2"] {
+  left: 12.5%;
+  transform: translateX(-12.5%); }
+
+[point_id="10,6"] {
+  left: 37.5%;
+  transform: translateX(-37.5%); }
+
+[point_id="10,10"] {
+  left: 62.5%;
+  transform: translateX(-62.5%); }
+
+[point_id="10,14"] {
+  left: 87.5%;
+  transform: translateX(-87.5%); }
+
+[point_id="8,4"] {
+  left: 25%;
+  transform: translateX(-25%); }
+
+[point_id="8,12"] {
+  left: 75%;
+  transform: translateX(-75%); }
+
+[point_id="6,6"] {
+  left: 37.5%;
+  transform: translateX(-37.5%); }
+
+[point_id="6,10"] {
+  left: 62.5%;
+  transform: translateX(-62.5%); }
+
+[point_id="4,8"] {
+  left: 50%;
+  transform: translateX(-50%); }
+
+[point_id="2,16"] {
+  right: 0; }
+
+[point_id="0,8"] {
+  left: 50%;
+  transform: translateX(-50%); }
+
+.row .point:last-child {
+  margin-right: 0; }
+
+.home {
+  position: absolute;
+  transform: translate(-50%); }
+
+.home_pawns {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border: 0;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 28px; }
+
+.home_pawns.\--available {
+  cursor: pointer; }
+
+.home_pawns.\--available:hover {
+  border: 5px solid #000000; }
+
+.\--is-players-turn .home_pawns {
+  border: 5px solid black; }
+
+.\--is-players-turn .home_pawns.\--pickable {
+  border: 5px solid orange;
+  cursor: pointer; }
+  .\--is-players-turn .home_pawns.\--pickable:hover {
+    border-color: #0a0a0a; }
+
+.\--is-players-turn .home_pawns.\--picked {
+  border: 5px solid lightpink; }
+
+.home[color="red"] {
+  left: 14%; }
+  .home[color="red"] .home_pawns {
+    background: red; }
+
+.home[color="green"] {
+  left: 38%; }
+  .home[color="green"] .home_pawns {
+    background: green; }
+
+.home[color="yellow"] {
+  left: 62%; }
+  .home[color="yellow"] .home_pawns {
+    background: yellow;
+    color: #000000; }
+
+.home[color="blue"] {
+  left: 86%; }
+  .home[color="blue"] .home_pawns {
+    background: blue; }
+
+.home_pick-color {
+  text-align: center;
+  margin: 20px 0 0 -5px;
+  padding: 5px 10px;
+  background: #2db4ff;
+  color: #ffffff;
+  cursor: pointer; }
+  .home_pick-color:hover {
+    background: #0b47f1; }
+
+.home_nickname {
+  text-align: center;
+  margin: 20px 0 0 -5px; }
+
+.dice {
+  position: absolute;
+  padding: 20px;
+  font-size: 20px;
+  right: -100px;
+  top: 0;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  text-align: center;
+  width: 65px;
+  cursor: pointer; }
+
+.dice:hover {
+  background: #dddddd; }
+
+.setup {
+  margin: 50px; }
+
+.setup_row {
+  padding: 10px; }
+
+.setup_input {
+  padding: 5px 10px 5px 0;
+  border: 0;
+  border-bottom: 1px solid grey; }
+
+.setup_button {
+  padding: 7px 10px;
+  background: #2db4ff;
+  color: #ffffff;
+  cursor: pointer; }
+  .setup_button:hover {
+    background: #0b47f1; }
+
+.popup-background {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -300px;
+  left: 0;
+  bottom: -300px;
+  background: rgba(255, 255, 255, 0.5); }
+
+.winner-popup {
+  position: absolute;
+  background: #ffffff;
+  padding: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #2db4ff; }

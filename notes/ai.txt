@@ -1,0 +1,46 @@
+
+AI:
+
+bij iedere beurt door iedere 5 pawns lopen en per positie en mogelijkheid (en later karakter) van die pawn een score geven bijv dus 
+
+forlus door pawns {
+	
+	forlus door opties van pawns en hoogte score gaat door {
+
+	}
+
+	return pawn optie met hoogste score van alle pawns
+
+}
+
+
+Barricade pakken = 10
+Stil staan bij barricade = 0. = als je als ai een barricade in handbereik hebt
+Verder richting home = 20 of 7. = nieuwe point is in rij dichter bij home dan huidige point, alleen geldig voor point die het verst weg is anders krijgt deze 7 x (nog te bepalen  punten
+Andere speler slaan = 3 x 1 + 0.(rij aantal) dus rij 1 = 1.1, rij 12 = 4 x 2.2
+Weggaan uit home = 5
+
+Pawn1: rij: 3, kan: barricade pakken = score : 10 x 1.03 = 11,03;
+Pawn2: rij: 2, kan speler slaan = score ; 3 x 1.2 = 3.6
+Pawn3: rij: 0 kan weggaan uit home = 5;
+Pawn4: rij 0 kan weggaan uit home = 5;
+Pawn5: rij 0 kan weggaan uit home = 5;
+
+dus Pawn1 move wordt gedaan
+
+Pawn1: rij: 7, kan: staat stil bij barricade = score = 0;
+Pawn2: rij: 5, kan speler slaan = score ; 3 x 1.5 = 4.5
+Pawn3: rij: 1 kan verder richting home = scrore = 7;
+Pawn4: rij 0 kan weggaan uit home = 5;
+Pawn5: rij 0 kan weggaan uit home = 5;
+
+dus Pawn3 move wordt gedaan
+
+Pawn1: rij 0 kan weggaan uit home = 5;
+Pawn2: rij 0 kan weggaan uit home = 5;
+Pawn3: rij 0 kan weggaan uit home = 5;
+Pawn4: rij 0 kan weggaan uit home = 5;
+Pawn5: rij 0 kan weggaan uit home = 5;
+
+dus Pawn1 move wordt gedaan
+

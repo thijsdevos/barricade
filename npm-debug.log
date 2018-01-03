@@ -1,0 +1,36 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Users\\Thijs\\Documents\\Software\\neard\\bin\\nodejs\\nodejs6.11.2\\node.exe',
+1 verbose cli   'C:\\Users\\Thijs\\Documents\\Software\\neard\\bin\\nodejs\\nodejs6.11.2\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'watch' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.2
+4 verbose run-script [ 'prewatch', 'watch', 'postwatch' ]
+5 info lifecycle juboxx@2.0.0~prewatch: juboxx@2.0.0
+6 silly lifecycle juboxx@2.0.0~prewatch: no script for prewatch, continuing
+7 info lifecycle juboxx@2.0.0~watch: juboxx@2.0.0
+8 verbose lifecycle juboxx@2.0.0~watch: unsafe-perm in lifecycle true
+9 verbose lifecycle juboxx@2.0.0~watch: PATH: C:\Users\Thijs\Documents\Software\neard\bin\nodejs\nodejs6.11.2\node_modules\npm\bin\node-gyp-bin;C:\Users\Thijs\Documents\Projecten\barricade\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Users\Thijs\Documents\Software\neard\bin\apache\apache2.4.27\bin;C:\Users\Thijs\Documents\Software\neard\bin\php\php7.1.8;C:\Users\Thijs\Documents\Software\neard\bin\php\php7.1.8\pear;C:\Users\Thijs\Documents\Software\neard\bin\php\php7.1.8\imagick;C:\Users\Thijs\Documents\Software\neard\bin\nodejs\nodejs6.11.2;C:\Users\Thijs\Documents\Software\neard\bin\svn\svn1.9.4;C:\Users\Thijs\Documents\Software\neard\tools\composer\composer1.4.2;C:\Users\Thijs\Documents\Software\neard\tools\drush\drush8.1.11;C:\Users\Thijs\Documents\Software\neard\tools\ghostscript\ghostscript9.21\bin;C:\Users\Thijs\Documents\Software\neard\tools\git\git2.14.1\bin;C:\Users\Thijs\Documents\Software\neard\tools\imagemagick\imagemagick7.0.5-10;C:\Users\Thijs\Documents\Software\neard\tools\perl\perl5.26.0.1\perl\site\bin;C:\Users\Thijs\Documents\Software\neard\tools\perl\perl5.26.0.1\perl\bin;C:\Users\Thijs\Documents\Software\neard\tools\perl\perl5.26.0.1\c\bin;C:\Users\Thijs\Documents\Software\neard\tools\phpmetrics\phpmetrics1.9.2;C:\Users\Thijs\Documents\Software\neard\tools\phpunit\phpunit5.6.1;C:\Users\Thijs\Documents\Software\neard\tools\python\python3.6.0.1\bin;C:\Users\Thijs\Documents\Software\neard\tools\ruby\ruby2.4.1.2.p111\bin;C:\Users\Thijs\Documents\Software\neard\tools\wpcli\wpcli0.24.1;C:\Users\Thijs\Documents\Software\neard\tools\yarn\yarn0.24.6;C:\Users\Thijs\AppData\Local\Microsoft\WindowsApps;
+10 verbose lifecycle juboxx@2.0.0~watch: CWD: C:\Users\Thijs\Documents\Projecten\barricade
+11 silly lifecycle juboxx@2.0.0~watch: Args: [ '/d /s /c', 'webpack --progress --colors --watch' ]
+12 verbose stack Error: kill ENOSYS
+12 verbose stack     at exports._errnoException (util.js:1020:11)
+12 verbose stack     at process.kill (internal/process.js:190:13)
+12 verbose stack     at process.listener (C:\Users\Thijs\Documents\Software\neard\bin\nodejs\nodejs6.11.2\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:86:15)
+12 verbose stack     at emitNone (events.js:91:20)
+12 verbose stack     at process.emit (events.js:185:7)
+12 verbose stack     at processEmit (C:\Users\Thijs\Documents\Software\neard\bin\nodejs\nodejs6.11.2\node_modules\npm\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+12 verbose stack     at processEmit (C:\Users\Thijs\Documents\Software\neard\bin\nodejs\nodejs6.11.2\node_modules\npm\node_modules\npm-registry-client\node_modules\npmlog\node_modules\gauge\node_modules\signal-exit\index.js:146:32)
+12 verbose stack     at Signal.wrap.onsignal (internal/process.js:217:44)
+13 verbose cwd C:\Users\Thijs\Documents\Projecten\barricade
+14 error Windows_NT 10.0.16299
+15 error argv "C:\\Users\\Thijs\\Documents\\Software\\neard\\bin\\nodejs\\nodejs6.11.2\\node.exe" "C:\\Users\\Thijs\\Documents\\Software\\neard\\bin\\nodejs\\nodejs6.11.2\\node_modules\\npm\\bin\\npm-cli.js" "run" "watch"
+16 error node v6.11.2
+17 error npm  v3.10.10
+18 error code ENOSYS
+19 error errno ENOSYS
+20 error syscall kill
+21 error kill ENOSYS
+22 error If you need help, you may report this error at:
+22 error     <https://github.com/npm/npm/issues>
+23 verbose exit [ 1, true ]

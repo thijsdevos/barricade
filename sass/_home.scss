@@ -1,0 +1,86 @@
+.home {
+  position: absolute;
+  transform: translate(-50%);
+}
+
+.home_pawns {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border: 0;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 28px;
+
+}
+
+.home_pawns.--available {
+  cursor: pointer;
+}
+
+.home_pawns.--available:hover {
+  border: 5px solid #000000;
+}
+
+.--is-players-turn .home_pawns {
+  border: 5px solid black;
+}
+
+.--is-players-turn .home_pawns.--pickable {
+  border: 5px solid orange;
+  cursor: pointer;
+  &:hover {
+    border-color: #0a0a0a;
+  }
+}
+
+.--is-players-turn .home_pawns.--picked {
+  border: 5px solid lightpink;
+}
+
+.home[color="red"] {
+  left: 14%;
+  .home_pawns {
+    background: red;
+  }
+}
+
+.home[color="green"] {
+  left: 38%;
+  .home_pawns {
+    background: green;
+  }
+}
+
+.home[color="yellow"] {
+  left: 62%;
+  .home_pawns {
+    background: yellow;
+    color: #000000;
+  }
+}
+
+.home[color="blue"] {
+  left: 86%;
+  .home_pawns {
+    background: blue;
+  }
+}
+
+.home_pick-color {
+  text-align: center;
+  margin: 20px 0 0 -5px;
+  padding: 5px 10px;
+  background: #2db4ff;
+  color: #ffffff;
+  cursor: pointer;
+  &:hover {
+    background: #0b47f1;
+  }
+}
+
+.home_nickname {
+  text-align: center;
+  margin: 20px 0 0 -5px;
+}

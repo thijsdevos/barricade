@@ -1,0 +1,16 @@
+.dice {
+  position: absolute;
+  padding: 20px;
+  font-size: 20px;
+  right: -100px;
+  top: 0;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  text-align: center;
+  width: 65px;
+  cursor: pointer;
+}
+
+.dice:hover {
+  background: #dddddd;
+}

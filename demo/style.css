@@ -1,0 +1,250 @@
+body {
+    font-family: Arial;
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.board {
+    width: 670px;
+    position: relative;
+}
+
+.dice {
+    position: absolute;
+    padding: 20px;
+    font-size: 20px;
+    right: -100px;
+    top: 0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    text-align: center;
+    width: 65px;
+    cursor: pointer;
+}
+
+.dice:hover {
+    background: #dddddd;
+}
+
+.row {
+    position: relative;
+    height: 42px;
+}
+
+.row:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+[row_id="0"] .home,
+[row_id="2"] .point,
+[row_id="4"] .point,
+[row_id="6"] .point,
+[row_id="8"] .point,
+[row_id="10"] .point,
+[row_id="12"] .point,
+[row_id="14"] .point {
+    position: absolute;
+}
+
+[row_id="5"] .point:first-child {
+    margin-left: 12%;
+}
+
+[row_id="7"] .point:first-child {
+    margin-left: 24%;
+}
+
+[row_id="9"] .point:first-child {
+    margin-left: 36%;
+}
+
+.point, .home {
+    border: 1px solid #888888;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+.point.--available {
+    border-style: dotted;
+    background: ivory;
+    cursor: pointer;
+}
+
+.point.--blocked {
+    background: #888888;
+}
+
+.point.--filled {
+    border: 0;
+}
+
+.point.--blocked.--available {
+    background: #cccccc;
+}
+
+.point[player_id="0"]:hover {
+    border: 2px solid red;
+}
+
+.point[player_id="1"]:hover {
+    border: 2px solid green;
+}
+
+.point[player_id="2"]:hover {
+    border: 2px solid yellow;
+}
+
+.point[player_id="3"]:hover {
+    border: 2px solid blue;
+}
+
+.point.--filled[player_id="0"] {
+    background: red;
+}
+
+.point.--filled[player_id="1"] {
+    background: green;
+}
+
+.point.--filled[player_id="2"] {
+    background: yellow;
+}
+
+.point.--filled[player_id="3"] {
+    background: blue;
+}
+
+.point span,
+.home span {
+    /*display: none;*/
+}
+
+.home {
+    width: 60px;
+    height: 60px;
+    border: 0;
+    transform: translate(-50%);
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 28px;
+}
+
+.home.--available {
+    cursor: pointer;
+}
+
+.home.--available:hover {
+    border: 5px solid #000000;
+}
+
+[point_id="0;2"] {
+    left: 14%;
+    background: red;
+}
+
+[point_id="0;6"] {
+    left: 38%;
+    background: green;
+}
+
+[point_id="0;10"] {
+    left: 62%;
+    background: yellow;
+    color: #000000;
+}
+
+[point_id="0;14"] {
+    left: 86%;
+    background: blue;
+}
+
+[point_id="2;0"] {
+   left: 0;
+}
+
+[point_id="2;4"] {
+    left: 25%;
+    transform: translateX(-25%);
+}
+
+[point_id="2;8"] {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+[point_id="2;12"] {
+    left: 75%;
+    transform: translateX(-75%);
+}
+
+[point_id="2;16"] {
+    right: 0;
+}
+
+[point_id="4;2"] {
+    left: 12.5%;
+    transform: translateX(-12.5%);
+}
+
+[point_id="4;6"] {
+    left: 37.5%;
+    transform: translateX(-37.5%);
+}
+
+[point_id="4;10"] {
+    left: 62.5%;
+    transform: translateX(-62.5%);
+}
+
+[point_id="4;14"] {
+    left: 87.5%;
+    transform: translateX(-87.5%);
+}
+
+[point_id="6;4"] {
+    left: 25%;
+    transform: translateX(-25%);
+}
+
+[point_id="6;12"] {
+    left: 75%;
+    transform: translateX(-75%);
+}
+
+[point_id="8;6"] {
+    left: 37.5%;
+    transform: translateX(-37.5%);
+}
+
+[point_id="8;10"] {
+    left: 62.5%;
+    transform: translateX(-62.5%);
+}
+
+[point_id="10;8"] {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+[point_id="12;16"] {
+    right: 0;
+}
+
+[point_id="14;8"] {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.row .point:last-child {
+    margin-right: 0;
+}
