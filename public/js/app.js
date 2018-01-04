@@ -3579,7 +3579,7 @@ var points_default = /*#__PURE__*/__webpack_require__.n(points);
     props: ['point_id'],
     data() {
         return {
-            show_ids: false
+            show_ids: true
         };
     },
     computed: {

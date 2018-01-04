@@ -4,7 +4,7 @@
         props: ['point_id'],
         data() {
             return {
-                show_ids: false
+                show_ids: true
             }
         },
         computed: {

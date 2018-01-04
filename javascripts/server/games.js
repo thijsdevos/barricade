@@ -1,6 +1,7 @@
 const Game = require('./game');
 const Moves = require('./moves');
 const Socket = require('./socket');
+const Barricades = require('./barricades');
 
 const Games = function() {
 
@@ -13,7 +14,7 @@ const Games = function() {
         yellow: '14,10',
         blue: '14,14'
     };
-    const ai_speed = 250;
+    const ai_speed = 100;
 
     this.games = {};
 
@@ -256,37 +257,64 @@ const Games = function() {
                 if(current_points[x] === game.turn) {
                     //check possibilities;
 
-                    const picked_pawn = x;
-                    const moves = this.getPossibleMoves(id, picked_pawn);
+                    const point_id_to_check = x;
+                    const moves = this.getPossibleMoves(id, point_id_to_check);
 
                     moves.forEach((move) => {
 
-                        if(move === '0,8') {
-                            score = 100;
-                        }
-                        else if(move === '1,8') {
+                        score = 0;
+
+                        if(Moves.getRow(point_id_to_check) < Moves.getRow(move)) {
                             score = 0;
                         }
-                        else if (Moves.getRow(picked_pawn) < 4 && Moves.getRow(picked_pawn) > Moves.getRow(move)) {
+                        else if(move === '0,8') {
+                            score = 100;
+                        }
+                        else if(point_id_to_check === '1,8') {
+                            score = 0;
+                        }
+                        else if(Moves.getRow(point_id_to_check) > Moves.getRow(move)) {
+                            score = 20;
+                        }
+                        else if(Moves.getRow(point_id_to_check) < 6 && Moves.getRow(point_id_to_check) > 2 && Moves.getColumn(point_id_to_check) > 6 && Moves.getColumn(point_id_to_check) < 10 && game.thrown > 3) {
+
+                            let barricades_between_pawn_finish = Barricades.getNumberBarricadesBetweenPawnAndFinish(current_points, '3,8');
+
+                            if(barricades_between_pawn_finish.route.left !== null && Moves.getColumn(point_id_to_check) > Moves.getColumn(move)) {
+                                score = 90 / barricades_between_pawn_finish.route.left;
+                            }
+
+                            if(barricades_between_pawn_finish.route.right !== null && Moves.getColumn(point_id_to_check) < Moves.getColumn(move)) {
+                                let new_score = 90 / barricades_between_pawn_finish.route.right;
+                                score = score < new_score ? new_score : score;
+                            }
+
+                            console.log('point id: ' + point_id_to_check);
+                            console.log('move id: ' + move);
+                            console.log(barricades_between_pawn_finish);
+                            console.log(score);
+
+                        }
+                        else if (Moves.getRow(point_id_to_check) < 4 && Moves.getRow(point_id_to_check) > Moves.getRow(move)) {
                             score = 15;
                         }
-                        else if (Moves.getRow(picked_pawn) === 1 && Moves.getColumn(picked_pawn) <= 8 && Moves.getColumn(picked_pawn) < Moves.getColumn(move)) {
+                        else if (Moves.getRow(point_id_to_check) === 1 && Moves.getRow(point_id_to_check) === Moves.getRow(move) && Moves.getColumn(point_id_to_check) <= 8 && Moves.getColumn(point_id_to_check) < Moves.getColumn(move)) {
                             score = 15;
                         }
-                        else if (Moves.getRow(picked_pawn) === 1 && Moves.getColumn(picked_pawn) > 8 && Moves.getColumn(picked_pawn) > Moves.getColumn(move)) {
+                        else if (Moves.getRow(point_id_to_check) === 1 && Moves.getRow(point_id_to_check) === Moves.getRow(move) && Moves.getColumn(point_id_to_check) > 8 && Moves.getColumn(point_id_to_check) > Moves.getColumn(move)) {
                             score = 15;
                         }
-                        else if (Moves.getRow(picked_pawn) === 3 && Moves.getColumn(picked_pawn) <= 8 && Moves.getColumn(picked_pawn) > Moves.getColumn(move)) {
+                        else if (Moves.getRow(point_id_to_check) === 3 && Moves.getColumn(point_id_to_check) <= 8 && Moves.getColumn(point_id_to_check) > Moves.getColumn(move)) {
                             score = 15;
                         }
-                        else if (Moves.getRow(picked_pawn) === 3 && Moves.getColumn(picked_pawn) > 8 && Moves.getColumn(picked_pawn) < Moves.getColumn(move)) {
+                        else if (Moves.getRow(point_id_to_check) === 3 && Moves.getColumn(point_id_to_check) > 8 && Moves.getColumn(point_id_to_check) < Moves.getColumn(move)) {
                             score = 15;
                         }
-                        else if(current_points[move] === 'blocked') {
+                        else if(current_points[move] === 'blocked' && Moves.getRow(point_id_to_check) >= Moves.getRow(move)) {
                             score = 10;
-                        } else if(Moves.getRow(picked_pawn) > Moves.getRow(move)) {
+                        } else if(Moves.getRow(point_id_to_check) > Moves.getRow(move)) {
                             score = 12.5;
-                        } else if (Moves.getRow(picked_pawn) === Moves.getRow(move)) {
+                        } else if (Moves.getRow(point_id_to_check) === Moves.getRow(move)) {
                             score = 4;
                         } else {
                             score = 0;
@@ -359,66 +387,59 @@ const Games = function() {
                                 let column = Moves.getColumn(x);
 
 
-                                /*
-                                if(row === 1) {
-                                    console.log('row: ' + row + ' , column: ' + column);
-                                    console.log('left');
-                                    console.log(column);
-                                    console.log(row + ',' + (column + 1));
-                                    console.log(typeof points[row + ',' + (column + 1)] !== 'undefined');
-                                    console.log(row === 1 && column <= 8 && typeof points[row + ',' + (column + 1)] !== 'undefined' && points[row + ',' + (column + 1)] === null);
+                                if(row < 4) {
+                                    let barricades_between_pawn_finish = Barricades.getNumberBarricadesBetweenPawnAndFinish(points, x);
+                                    /*
+                                    console.log('');
+                                    console.log('number barricades');
+                                    console.log('point id: ' + x);
+                                    console.log(barricades_between_pawn_finish);
+                                    */
+                                    if(barricades_between_pawn_finish.route.left !== null && barricades_between_pawn_finish.route.left < 4) {
+                                        best_point = barricades_between_pawn_finish.best_put_place.left;
+                                    }
 
+                                    if(best_point !== null && barricades_between_pawn_finish.route.right !== null && barricades_between_pawn_finish.route.right < 4) {
+                                        best_point = barricades_between_pawn_finish.best_put_place.right;
+                                    }
 
-                                    console.log('right');
-                                    console.log(column);
-                                    console.log(row + ',' + (column - 1));
-                                    console.log(typeof points[row + ',' + (column - 1)] !== 'undefined');
-                                    console.log(row === 1 && column > 8 && typeof points[row + ',' + (column - 1)] !== 'undefined' && points[row + ',' + (column - 1)] === null);
+                                    if(best_point !== null) {
+                                        break;
+                                    }
                                 }
-                                */
 
-                                /*
-                                console.log('check 1: ' + points[row + ',' + column + 1]);
-                                console.log('check 2: ' + points[row + ',' + column - 1]);
-                                console.log('check 3: ' + points[row + ',' + column - 1]);
-                                console.log('check 4: ' + points[row + ',' + column + 1]);
-                                console.log('check 5: ' + points[row - 1 + ',' + column]);
-                                console.log('check 6: ' + points[row + ',' + column + 1]);
-                                console.log('check 7: ' + points[row + ',' + column - 1]);
-                                */
                                 if(row === 1 && column < 8 && typeof points[row + ',' + (column + 1)] !== 'undefined' && points[row + ',' + (column + 1)] === null) {
                                     best_point = row + ',' + (column + 1);
-                                    console.log(1);
+                                    //console.log(1);
                                     break;
                                 }
                                 else if(row === 1 && column > 8 && typeof points[row + ',' + (column - 1)] !== 'undefined' && points[row + ',' + (column - 1)] === null) {
                                     best_point = row + ',' + (column - 1);
-                                    console.log(2);
+                                    //console.log(2);
                                     break;
                                 }
                                 else if(row === 3 && column < 8 && typeof points[row + ',' + (column - 1)] !== 'undefined' && points[row + ',' + (column - 1)] === null) {
                                     best_point = row + ',' + (column - 1);
-                                    console.log(3);
+                                    //console.log(3);
                                     break;
                                 }
                                 else if(row === 3 && column > 8 && typeof points[row + ',' + (column + 1)] !== 'undefined' && points[row + ',' + (column + 1)] === null) {
                                     best_point = row + ',' + (column + 1);
-                                    console.log(4);
+                                    //console.log(4);
                                     break;
-                                }
-                                else if (typeof points[(row - 1) + ',' + column] !== 'undefined' && points[(row - 1) + ',' + column] === null) {
+                                } else if (typeof points[(row - 1) + ',' + column] !== 'undefined' && points[(row - 1) + ',' + column] === null) {
                                     best_point = (row - 1) + ',' + column;
-                                    console.log(5);
+                                    //console.log(5);
                                     break;
                                 }
                                 else if(row > 3 && column <= 8 && typeof points[row + ',' + (column + 1)] !== 'undefined' && points[row + ',' + (column + 1)] === null) {
                                     best_point = row + ',' + (column + 1);
-                                    console.log(6);
+                                    //console.log(6);
                                     break;
                                 }
                                 else if(row > 3 && column > 8 && typeof points[row + ',' + (column - 1)] !== 'undefined' && points[row + ',' + (column - 1)] === null) {
                                     best_point = row + ',' + (column - 1);
-                                    console.log(7);
+                                    //console.log(7);
                                     break;
                                 }
                             }
@@ -430,7 +451,7 @@ const Games = function() {
 
                     //console.log(random_point);
                     if(best_point !== null) {
-                        console.log('best: ' + best_point + ' , random: ' + random_point);
+                        //console.log('best: ' + best_point + ' , random: ' + random_point);
                     }
 
                     //this.setPutBarricade(id, possible_points[Math.ceil(Math.random() * (possible_points.length - 1))]);
