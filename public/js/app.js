@@ -317,10 +317,13 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var url = 'ws://barricade-barricade.1d35.starter-us-east-1.openshiftapps.com/';
+//const url = 'ws://localhost:8443';
+
 var Socket = new function () {
     var _this = this;
 
-    this.socket = (0, _socket2.default)('ws://localhost:8443?profile_id=' + localStorage.getItem('barricade_profile_id'));
+    this.socket = (0, _socket2.default)(url + '?profile_id=' + localStorage.getItem('barricade_profile_id'));
     this.send = function (name, variable) {
         _this.socket.emit(name, variable);
     };

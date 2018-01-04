@@ -1,7 +1,10 @@
 import io from 'socket.io-client';
 
+const url = 'ws://barricade-barricade.1d35.starter-us-east-1.openshiftapps.com/';
+//const url = 'ws://localhost:8443';
+
 const Socket = new function() {
-    this.socket = io('ws://localhost:8443?profile_id=' + localStorage.getItem('barricade_profile_id'));
+    this.socket = io(url + '?profile_id=' + localStorage.getItem('barricade_profile_id'));
     this.send = (name, variable) => {
         this.socket.emit(name, variable);
     };
