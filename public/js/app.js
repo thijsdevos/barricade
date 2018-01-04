@@ -317,7 +317,7 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var url = 'ws://barricade-barricade.1d35.starter-us-east-1.openshiftapps.com/';
+var url = 'ws://barricade-barricadeserver.1d35.starter-us-east-1.openshiftapps.com/';
 //const url = 'ws://localhost:8443';
 
 var Socket = new function () {
