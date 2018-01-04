@@ -320,7 +320,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Socket = new function () {
     var _this = this;
 
-    this.socket = (0, _socket2.default)('ws://localhost:3000?profile_id=' + localStorage.getItem('barricade_profile_id'));
+    this.socket = (0, _socket2.default)('ws://localhost:8443?profile_id=' + localStorage.getItem('barricade_profile_id'));
     this.send = function (name, variable) {
         _this.socket.emit(name, variable);
     };

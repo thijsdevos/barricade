@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
 const Socket = new function() {
-    this.socket = io('ws://localhost:3000?profile_id=' + localStorage.getItem('barricade_profile_id'));
+    this.socket = io('ws://localhost:8443?profile_id=' + localStorage.getItem('barricade_profile_id'));
     this.send = (name, variable) => {
         this.socket.emit(name, variable);
     };

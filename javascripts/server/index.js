@@ -18,7 +18,7 @@ App.get('/', (req, res) => {
 
     res.sendFile(base + '/index.html');
 });
-App.listen(8080);
+App.listen(80);
 
 Socket.on('connection', (client) => {
 
