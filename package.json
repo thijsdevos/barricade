@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack --progress --colors --watch",
     "build": "webpack --progress --colors -p",
-    "server": "node javascripts/server/index.js"
+    "start": "node javascripts/server/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,7 @@
     "babel-preset-stage-2": "*",
     "css-loader": "*",
     "css-raw-loader": "*",
+    "express": "^4.16.2",
     "extract-text-webpack-plugin": "*",
     "jquery": "*",
     "node-sass": "*",
@@ -26,6 +27,8 @@
     "socket.io-client": "^2.0.4",
     "style-loader": "*",
     "vue": "^2.5.13",
+    "vue-loader": "^13.6.2",
+    "vue-template-compiler": "^2.5.13",
     "vuex": "^3.0.1",
     "webpack": "*"
   }

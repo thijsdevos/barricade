@@ -3,6 +3,22 @@ const Socket = require('./socket');
 const Players = require('./players');
 const Games = require('./games');
 
+const Express = require('express');
+const App = Express();
+const Path = require('path');
+
+const base = Path.join(__dirname + '/../..', 'public');
+
+App.use(Express.static(base));
+App.get('/', (req, res) => {
+
+   // console.log(__dirname);
+
+    //console.log(Path.join(__dirname, 'public') + '/index.html');
+
+    res.sendFile(base + '/index.html');
+});
+App.listen(8080);
 
 Socket.on('connection', (client) => {
 
