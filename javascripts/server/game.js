@@ -13,6 +13,7 @@ const Game = function(id, player_id) {
     this.thrown_history = [];
     this.picked_pawn = null;
     this.won = null;
+    this.speed = 100;
 
     this.counter = {
         color: null,

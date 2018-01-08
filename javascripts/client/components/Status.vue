@@ -1,6 +1,11 @@
 <script>
     import Socket from '../utils/socket';
     export default {
+        data() {
+            return {
+                speed: this.$store.getters.game.speed
+            }
+        },
         computed: {
             game() {
                 return this.$store.getters.game;
@@ -30,6 +35,9 @@
             },
             resetGame() {
                 Socket.send('reset_game');
+            },
+            setGameSpeed() {
+                Socket.send('set_game_speed', this.speed);
             }
         },
     }
@@ -46,7 +54,14 @@
         Admin: {{ game.admin }} <br />
         Color: {{ profile.color }} <br />
         Picked: {{ game.picked_pawn }}<br />
-        Turn counter: {{ game.counter.co }}
+        Turn counter: {{ game.counter.co }} <br />
+
+        Snelheid:
+        <select v-model="speed" v-on:change="setGameSpeed()">
+            <option value="100">Snel</option>
+            <option value="1000">Normaal</option>
+            <option value="3000">Langzaam</option>
+        </select>
 
         <div v-if="isAdmin()">
             <div v-if="canStart()" v-on:click="startGame()" style="margin: 10px; cursor: pointer; border: 1px solid black;">Start spel</div>

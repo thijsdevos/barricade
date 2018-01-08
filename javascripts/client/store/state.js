@@ -17,7 +17,8 @@ export default {
         counter: {
             color: null,
             co: 0
-        }
+        },
+        speed: 100
     },
     board: {
         home: {},

@@ -1,28 +1,13 @@
-
 const Socket = require('./socket');
 const Players = require('./players');
 const Games = require('./games');
-
-const Express = require('express');
-const App = Express();
-const Path = require('path');
-
-const base = Path.join(__dirname + '/../..', 'public');
-
-App.use(Express.static(base));
-App.get('/', (req, res) => {
-
-   // console.log(__dirname);
-
-    //console.log(Path.join(__dirname, 'public') + '/index.html');
-
-    res.sendFile(base + '/index.html');
-});
-App.listen(80);
+const Static = require('./static');
 
 Socket.on('connection', (client) => {
 
     const player_id = client.handshake.query.profile_id;
+
+    console.log(player_id)
 
     if(!Players.exists(player_id)) {
         Players.create(player_id);
@@ -82,6 +67,21 @@ Socket.on('connection', (client) => {
             color: color,
             type: 'ai'
         });
+
+        /*
+        if(color === 'red') {
+            Games.get(game_id).board.points['5,8'] = 'red';
+            Games.get(game_id).board.points['4,8'] = 'red';
+            Games.get(game_id).board.points['3,8'] = 'red';
+            Games.get(game_id).board.points['5,7'] = 'red';
+            Games.get(game_id).board.points['5,6'] = 'red';
+            Games.get(game_id).board.points['3,3'] = 'blocked';
+            Games.get(game_id).board.points['3,2'] = 'blocked';
+            Games.get(game_id).board.points['3,1'] = 'blocked';
+            Games.get(game_id).board.points['14,2'] = 0;
+        }
+        */
+
         Socket.to(game_id).emit('updateGame', Games.get(game_id));
     });
 
@@ -97,6 +97,13 @@ Socket.on('connection', (client) => {
         Socket.to(game_id).emit('updateGame', Games.get(game_id));
         Socket.to(game_id).emit('updateProfileAfterReset');
     });
+
+    client.on('set_game_speed', (speed) => {
+        const game_id = Players.get(player_id).game_id;
+        Games.setSpeed(game_id, parseInt(speed));
+        Socket.to(game_id).emit('updateGame', Games.get(game_id));
+    });
+
 
     client.on('set_thrown', (thrown) => {
         const game_id = Players.get(player_id).game_id;
@@ -123,24 +130,13 @@ Socket.on('connection', (client) => {
         Games.setPutPawn(game_id, point_id);
         Socket.to(game_id).emit('updateGame', Games.get(game_id));
         Socket.to(game_id).emit('updatePossibleMoves', []);
-
-        //if(Games.isAI(game_id)) {
-            //Games.turnAI(game_id);
-        //}
     });
 
     client.on('put_barricade', (point_id) => {
         const game_id = Players.get(player_id).game_id;
         Games.setPutBarricade(game_id, point_id);
         Socket.to(game_id).emit('updateGame', Games.get(game_id));
-
-        //if(Games.isAI(game_id)) {
-           // Games.turnAI(game_id);
-       // }
     });
-
-
-
 });
 
 console.log('server started!');

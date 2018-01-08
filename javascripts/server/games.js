@@ -14,8 +14,6 @@ const Games = function() {
         yellow: '14,10',
         blue: '14,14'
     };
-    const ai_speed = 100;
-
     this.games = {};
 
     this.create = (player_id) => {
@@ -78,6 +76,10 @@ const Games = function() {
         this.games[id].action = 'pick_pawn';
         this.games[id].thrown = thrown;
         this.games[id].thrown_history.push(thrown);
+    };
+
+    this.setSpeed = (id, speed) => {
+        this.games[id].speed = speed;
     };
 
     this.setPickedPawn = (id, point_id) => {
@@ -244,7 +246,7 @@ const Games = function() {
             const thrown = Math.ceil(Math.random() * 6);
             this.setThrown(id, thrown);
             Socket.to(id).emit('updateGame', game);
-        }, ai_speed);
+        }, game.speed);
 
         timeouts.pick_pawn = setTimeout(() => {
             let points_checked = [];
@@ -276,7 +278,7 @@ const Games = function() {
                         else if(Moves.getRow(point_id_to_check) > Moves.getRow(move)) {
                             score = 20;
                         }
-                        else if(Moves.getRow(point_id_to_check) < 6 && Moves.getRow(point_id_to_check) > 2 && Moves.getColumn(point_id_to_check) > 6 && Moves.getColumn(point_id_to_check) < 10 && game.thrown > 3) {
+                        else if(Moves.getRow(point_id_to_check) < 6 && Moves.getRow(point_id_to_check) > 2 && Moves.getColumn(point_id_to_check) > 6 && Moves.getColumn(point_id_to_check) < 10 && game.thrown > 1) {
 
                             let barricades_between_pawn_finish = Barricades.getNumberBarricadesBetweenPawnAndFinish(current_points, '3,8');
 
@@ -365,7 +367,7 @@ const Games = function() {
             }
 
 
-        }, ai_speed * 2);
+        }, game.speed * 2);
 
         timeouts.put_pawn = setTimeout(() => {
             this.setPutPawn(id, point_with_highest_score.move);
@@ -457,9 +459,9 @@ const Games = function() {
                     //this.setPutBarricade(id, possible_points[Math.ceil(Math.random() * (possible_points.length - 1))]);
                     this.setPutBarricade(id, choosen_point);
                     Socket.to(id).emit('updateGame', game);
-                }, ai_speed);
+                }, game.speed);
             }
-        }, ai_speed * 3);
+        }, game.speed * 3);
     };
 
 };

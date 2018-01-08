@@ -317,8 +317,8 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var url = 'ws://barricade-barricadeserver.1d35.starter-us-east-1.openshiftapps.com/';
-//const url = 'ws://localhost:8443';
+//const url = 'ws://barricade-barricadeserver.1d35.starter-us-east-1.openshiftapps.com/';
+var url = 'ws://localhost:8443';
 
 var Socket = new function () {
     var _this = this;
@@ -4305,6 +4305,11 @@ if (false) {(function () {
 
 
 /* harmony default export */ var Status = ({
+    data() {
+        return {
+            speed: this.$store.getters.game.speed
+        };
+    },
     computed: {
         game() {
             return this.$store.getters.game;
@@ -4334,6 +4339,9 @@ if (false) {(function () {
         },
         resetGame() {
             socket_default.a.send('reset_game');
+        },
+        setGameSpeed() {
+            socket_default.a.send('set_game_speed', this.speed);
         }
     }
 });
@@ -4357,7 +4365,50 @@ var Status_render = function() {
     _c("br"),
     _vm._v("\n    Picked: " + _vm._s(_vm.game.picked_pawn)),
     _c("br"),
-    _vm._v("\n    Turn counter: " + _vm._s(_vm.game.counter.co) + "\n\n    "),
+    _vm._v("\n    Turn counter: " + _vm._s(_vm.game.counter.co) + " "),
+    _c("br"),
+    _vm._v("\n\n    Snelheid:\n    "),
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.speed,
+            expression: "speed"
+          }
+        ],
+        on: {
+          change: [
+            function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.speed = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+            function($event) {
+              _vm.setGameSpeed()
+            }
+          ]
+        }
+      },
+      [
+        _c("option", { attrs: { value: "100" } }, [_vm._v("Snel")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "1000" } }, [_vm._v("Normaal")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "3000" } }, [_vm._v("Langzaam")])
+      ]
+    ),
+    _vm._v(" "),
     _vm.isAdmin()
       ? _c("div", [
           _vm.canStart()
@@ -8855,7 +8906,8 @@ exports.default = {
         counter: {
             color: null,
             co: 0
-        }
+        },
+        speed: 100
     },
     board: {
         home: {},
@@ -8948,6 +9000,7 @@ exports.default = {
         state.game.thrown = obj.thrown;
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;
+        state.game.speed = obj.speed;
         state.board = obj.board;
         state.players = obj.players;
     },
@@ -8959,6 +9012,7 @@ exports.default = {
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;
         state.game.counter.co = obj.counter.co;
+        state.game.speed = obj.speed;
         state.board = obj.board;
         state.players = obj.players;
     },
