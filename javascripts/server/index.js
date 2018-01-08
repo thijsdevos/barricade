@@ -18,7 +18,9 @@ Socket.on('connection', (client) => {
         client.emit('setupGame', Games.get(player.game_id));
     }
 
-    client.on('setup', (nickname) => {
+    client.on('setup', function(nickname) {
+
+        console.log(this);
 
         const game = Games.create(player_id);
 
@@ -27,8 +29,8 @@ Socket.on('connection', (client) => {
 
         Games.addPlayer(game.id, Players.get(player_id));
 
-        client.join(game.id);
-        client.emit('setupGame', Games.get(game.id));
+        this.join(game.id);
+        this.emit('setupGame', Games.get(game.id));
     });
 
     client.on('join', (obj) => {

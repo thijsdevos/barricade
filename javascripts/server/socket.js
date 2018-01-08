@@ -1,6 +1,5 @@
 const io = require('socket.io')();
-const socket = io.listen(8443);
-module.exports = socket;
+module.exports = io.listen(8443);
 
 /*
 const io = require('socket.io')();

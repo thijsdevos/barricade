@@ -5,7 +5,8 @@
   "scripts": {
     "watch": "webpack --progress --colors --watch",
     "build": "webpack --progress --colors -p",
-    "start": "node javascripts/server/index.js"
+    "start": "node javascripts/server/index.js",
+    "start-new": "node javascripts/server_new/index.js"
   },
   "author": "",
   "dependencies": {
