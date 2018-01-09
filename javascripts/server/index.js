@@ -87,13 +87,13 @@ Socket.on('connection', (client) => {
         Socket.to(game_id).emit('updateGame', Games.get(game_id));
     });
 
-    client.on('start_game', () => {
+    client.on('start', () => {
         const game_id = Players.get(player_id).game_id;
         Games.startGame(game_id);
         Socket.to(game_id).emit('updateGame', Games.get(game_id));
     });
 
-    client.on('reset_game', () => {
+    client.on('reset', () => {
         const game_id = Players.get(player_id).game_id;
         Games.resetGame(game_id);
         Socket.to(game_id).emit('updateGame', Games.get(game_id));

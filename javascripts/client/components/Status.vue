@@ -25,16 +25,16 @@
                 return this.game.admin === this.profile.id;
             },
             canStart() {
-                return !this.game.started;// && this.profile.color !== null;
+                return !this.game.running;// && this.profile.color !== null;
             },
             canReset() {
-                return this.game.started;
+                return this.game.running;
             },
             startGame() {
-                Socket.send('start_game');
+                Socket.send('start');
             },
             resetGame() {
-                Socket.send('reset_game');
+                Socket.send('reset');
             },
             setGameSpeed() {
                 Socket.send('set_game_speed', this.speed);

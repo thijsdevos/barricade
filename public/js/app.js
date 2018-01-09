@@ -4329,16 +4329,16 @@ if (false) {(function () {
             return this.game.admin === this.profile.id;
         },
         canStart() {
-            return !this.game.started; // && this.profile.color !== null;
+            return !this.game.running; // && this.profile.color !== null;
         },
         canReset() {
-            return this.game.started;
+            return this.game.running;
         },
         startGame() {
-            socket_default.a.send('start_game');
+            socket_default.a.send('start');
         },
         resetGame() {
-            socket_default.a.send('reset_game');
+            socket_default.a.send('reset');
         },
         setGameSpeed() {
             socket_default.a.send('set_game_speed', this.speed);
@@ -4638,9 +4638,6 @@ if (false) {(function () {
         this.$store.dispatch('setProfileId');
     },
     created() {
-        socket_default.a.recieve('setupGame', obj => {
-            this.$store.dispatch('setupGame', obj);
-        });
         socket_default.a.recieve('setupGame', obj => {
             this.$store.dispatch('setupGame', obj);
         });

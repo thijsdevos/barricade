@@ -19,7 +19,6 @@
         },
         created() {
             Socket.recieve('setupGame', obj => { this.$store.dispatch('setupGame', obj); });
-            Socket.recieve('setupGame', obj => { this.$store.dispatch('setupGame', obj); });
             Socket.recieve('updateGame', obj => { this.$store.dispatch('updateGame', obj); });
             Socket.recieve('updateProfile', obj => { this.$store.dispatch('updateProfile', obj); });
             Socket.recieve('updateProfileAfterReset', () => { this.$store.dispatch('updateProfileAfterReset'); });
