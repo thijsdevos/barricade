@@ -138,7 +138,6 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
     <handled-path value="$PROJECT_DIR$/../sexjobschat_new/node_modules" />
   </component>
   <component name="PackageJsonUpdateNotifier">
@@ -257,12 +256,12 @@
       <workItem from="1515442078397" duration="13717000" />
       <workItem from="1515456370437" duration="360000" />
       <workItem from="1515690804883" duration="620000" />
-      <workItem from="1515856069583" duration="1172000" />
+      <workItem from="1515856069583" duration="1254000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137344000" />
+    <option name="totallyTimeSpent" value="137426000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
