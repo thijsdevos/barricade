@@ -7,7 +7,7 @@ export default {
         state.game.admin = obj.admin;
         state.game.turn = obj.turn;
         state.game.action = obj.action;
-        state.game.started = obj.started;
+        state.game.running = obj.running;
         state.game.thrown = obj.thrown;
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;
@@ -18,7 +18,7 @@ export default {
     updateGame(state, obj) {
         state.game.turn = obj.turn;
         state.game.action = obj.action;
-        state.game.started = obj.started;
+        state.game.running = obj.running;
         state.game.thrown = obj.thrown;
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;

@@ -1,6 +1,8 @@
 .row {
   position: relative;
-  height: 42px;
+  //height: 42px;
+  height: 6.4%;
+  //margin-bottom: 0.8%;
 }
 
 .row:after {
@@ -20,7 +22,8 @@
 }
 
 [row_id="5"] .point:first-child {
-  margin-left: 36%;
+  //margin-left: 36%;
+  margin-left: 35.6%;
 }
 
 [row_id="7"] .point:first-child {
@@ -32,53 +35,55 @@
 }
 
 .point {
-  border: 1px solid #888888;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  position: relative;
+  background: #B5A075;
+  height: 100%;
+  width: 5.882352941176471%;
   float: left;
-  margin: 0 10px 10px 0;
+}
+
+.row .point:last-child {
+  margin-right: 0;
+}
+
+@keyframes example {
+  from {background-color: #F6EED7; box-shadow: 0 0 0 0;}
+  to {background-color: #ffffff; box-shadow: 0 0 5px 1px #000000;}
 }
 
 .point {
-  &.--puttable {
-    border-style: dotted;
-    background: ivory;
+
+  div {
+    background: #F6EED7;
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    border-radius: 50%;
+  }
+
+  &.--blocked div {
+    background: #666666;
+    box-shadow: 0 0 2px 1px #000000;
+  }
+
+  &.--puttable div {
+    background: #F6EED7;
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count:infinite;
     cursor: pointer;
     &:hover {
-      background: darken(ivory, 10%);
+      background: lighten(#F6EED7, 10%);
     }
   }
 
-  &.--puttable-barricade {
-    //background: black;
-    cursor: pointer;
-    border: 3px dotted #000000;
-    &:hover {
-      //background: lighten(black, 20%);
-    }
-  }
-
-  &.--blocked {
-    background: #888888;
-  }
-
-  &.--filled {
-    border: 0;
-  }
-
-  &.--picked {
-    border: 3px solid #000000;
-  }
-
-  &.--puttable {
-    border: 3px solid #000000;
-  }
-
-  &.--blocked.--puttable {
+  &.--puttable-barricade div {
     background: #cccccc;
+    cursor: pointer;
     &:hover {
-      background: darken(#cccccc, 10%);
+      background: #888888;
     }
   }
 
@@ -86,99 +91,65 @@
     cursor: pointer;
   }
 
-  &.--red {
-    //border-color: red;
-    background: red;
+  &.--red div {
+    background: $red;
+    box-shadow: 0 0 2px 1px #000000;
   }
 
-  &.--pickable.--red:hover {
-    background: lighten(red, 20%);
+  &.--pickable.--red div:hover {
+    background: lighten($red, 20%);
   }
 
-  &.--puttable.--red {
-    background: lighten(red, 30%);
+  &.--puttable.--red div {
+    background: lighten($red, 30%);
   }
 
-  &.--yellow {
-    //border-color: yellow;
-    background: yellow;
+  &.--yellow div {
+    background: $yellow;
+    box-shadow: 0 0 2px 1px #000000;
   }
 
-  &.--pickable.--yellow:hover {
-    background: darken(yellow, 20%);
+  &.--pickable.--yellow div:hover {
+    background: darken($yellow, 20%);
   }
 
-  &.--puttable.--yellow {
-    background: lighten(yellow, 30%);
+  &.--puttable.--yellow div {
+    background: lighten($yellow, 30%);
   }
 
-  &.--green {
-    //border-color: green;
-    background: green;
+  &.--green div {
+    background: $green;
+    box-shadow: 0 0 2px 1px #000000;
   }
 
-  &.--pickable.--green:hover {
-    background: lighten(green, 20%);
+  &.--pickable.--green:hover div {
+    background: lighten($green, 20%);
   }
 
-  &.--puttable.--green {
-    background: lighten(green, 30%);
+  &.--puttable.--green div {
+    background: lighten($green, 30%);
   }
 
-  &.--blue {
-    //border-color: blue;
-    background: blue;
+  &.--blue div {
+    background: $blue;
+    box-shadow: 0 0 2px 1px #000000;
   }
 
-  &.--pickable.--blue:hover {
-    background: lighten(blue, 20%);
+  &.--pickable.--blue:hover div {
+    background: lighten($blue, 20%);
   }
 
-  &.--puttable.--blue {
-    background: lighten(blue, 30%);
+  &.--puttable.--blue div {
+    background: lighten($blue, 30%);
   }
 }
 
-/*
-.point[player_id="0"]:hover {
-  border: 2px solid red;
+[point_id="13,0"] {
+  border-radius: 0 0 0 $border-radius-point-rows;
 }
 
-.point[player_id="1"]:hover {
-  border: 2px solid green;
-}
-
-.point[player_id="2"]:hover {
-  border: 2px solid yellow;
-}
-
-.point[player_id="3"]:hover {
-  border: 2px solid blue;
-}
-*/
-
-.point.--filled[player_id="0"] {
-  background: red;
-}
-
-.point.--filled[player_id="1"] {
-  background: green;
-}
-
-.point.--filled[player_id="2"] {
-  background: yellow;
-}
-
-.point.--filled[player_id="3"] {
-  background: blue;
-}
-
-.point span {
-  /*display: none;*/
-  font-size: 0.8em;
-  padding: 6px 0 0;
-  display: block;
-  text-align: center;
+[point_id="13,16"] {
+  border-radius: 0 0 $border-radius-point-rows 0;
 }
 
 [point_id="12,0"] {
@@ -204,44 +175,76 @@
   right: 0;
 }
 
+[point_id="11,0"] {
+  border-radius: $border-radius-point-rows 0 0 0;
+}
+
+[point_id="11,16"] {
+  border-radius: 0 $border-radius-point-rows 0 0;
+}
+
 [point_id="10,2"] {
-  left: 12.5%;
+  //left: 12.5%;
+  left: 12.8%;
   transform: translateX(-12.5%);
 }
 
 [point_id="10,6"] {
-  left: 37.5%;
+  //left: 37.5%;
+  left: 37.7%;
   transform: translateX(-37.5%);
 }
 
 [point_id="10,10"] {
-  left: 62.5%;
+  //left: 62.5%;
+  left: 62.7%;
   transform: translateX(-62.5%);
 }
 
 [point_id="10,14"] {
-  left: 87.5%;
+  //left: 87.5%;
+  left: 87.8%;
   transform: translateX(-87.5%);
 }
 
+[point_id="9,2"] {
+  border-radius: $border-radius-point-rows 0 0 0;
+}
+
+[point_id="9,14"] {
+  border-radius: 0 $border-radius-point-rows 0 0;
+}
+
 [point_id="8,4"] {
-  left: 25%;
-  transform: translateX(-25%);
+  left: 24%;
 }
 
 [point_id="8,12"] {
-  left: 75%;
-  transform: translateX(-75%);
+  left: 71.05%;
+}
+
+[point_id="7,4"] {
+  border-radius: $border-radius-point-rows 0 0 0;
+}
+
+[point_id="7,12"] {
+  border-radius: 0 $border-radius-point-rows 0 0;
 }
 
 [point_id="6,6"] {
-  left: 37.5%;
-  transform: translateX(-37.5%);
+  left: 35.6%;
 }
 
 [point_id="6,10"] {
-  left: 62.5%;
-  transform: translateX(-62.5%);
+  left: 59.1%;
+}
+
+[point_id="5,6"] {
+  border-radius: $border-radius-point-rows 0 0 0;
+}
+
+[point_id="5,10"] {
+  border-radius: 0 $border-radius-point-rows 0 0;
 }
 
 [point_id="4,8"] {
@@ -249,15 +252,66 @@
   transform: translateX(-50%);
 }
 
+[point_id="3,0"] {
+  border-radius: 0 0 0 $border-radius-point-rows;
+}
+
+[point_id="3,16"] {
+  border-radius: 0 0 $border-radius-point-rows 0;
+}
+
 [point_id="2,16"] {
   right: 0;
+}
+
+[point_id="1,0"] {
+  border-radius: $border-radius-point-rows 0 0 0;
+}
+
+[point_id="1,16"] {
+  border-radius: 0 $border-radius-point-rows 0 0;
 }
 
 [point_id="0,8"] {
   left: 50%;
   transform: translateX(-50%);
+  border-radius: $border-radius-point-rows $border-radius-point-rows 0 0;
 }
 
-.row .point:last-child {
-  margin-right: 0;
+.point_finish {
+  box-shadow: 0 0 2px 1px #000000;
+}
+
+.point_finish_quarter-circle {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+
+  &.-top-left {
+    left: 0;
+    top: 0;
+    background: red;
+    border-radius: 100% 0 0 0;
+  }
+
+  &.-top-right {
+    right: 0;
+    top: 0;
+    background: $green;
+    border-radius: 0 100% 0 0;
+  }
+
+  &.-bottom-right {
+    right: 0;
+    bottom: 0;
+    background: $yellow;
+    border-radius: 0 0 100% 0;
+  }
+
+  &.-bottom-left {
+    left: 0;
+    bottom: 0;
+    background: $blue;
+    border-radius: 0 0 0 100%;
+  }
 }

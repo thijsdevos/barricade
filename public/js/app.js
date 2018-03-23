@@ -112,6 +112,45 @@ module.exports = function normalizeComponent (
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _socket = __webpack_require__(28);
+
+var _socket2 = _interopRequireDefault(_socket);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//const url = 'ws://barricade-barricadeserver.1d35.starter-us-east-1.openshiftapps.com/';
+var url = 'ws://localhost:8443';
+
+var Socket = new function () {
+    var _this = this;
+
+    this.socket = (0, _socket2.default)(url + '?profile_id=' + localStorage.getItem('barricade_profile_id'));
+    this.send = function (name, variable) {
+        _this.socket.emit(name, variable);
+    };
+
+    this.recieve = function (name, callback) {
+        _this.socket.on(name, callback);
+    };
+}();
+
+//socket.on('connect', function(){});
+//socket.on('event', function(data){});
+//socket.on('disconnect', function(){});
+
+exports.default = Socket;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * This is the web browser implementation of `debug()`.
  *
@@ -299,45 +338,6 @@ function localstorage() {
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _socket = __webpack_require__(28);
-
-var _socket2 = _interopRequireDefault(_socket);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//const url = 'ws://barricade-barricadeserver.1d35.starter-us-east-1.openshiftapps.com/';
-var url = 'ws://localhost:8443';
-
-var Socket = new function () {
-    var _this = this;
-
-    this.socket = (0, _socket2.default)(url + '?profile_id=' + localStorage.getItem('barricade_profile_id'));
-    this.send = function (name, variable) {
-        _this.socket.emit(name, variable);
-    };
-
-    this.recieve = function (name, callback) {
-        _this.socket.on(name, callback);
-    };
-}();
-
-//socket.on('connect', function(){});
-//socket.on('event', function(data){});
-//socket.on('disconnect', function(){});
-
-exports.default = Socket;
 
 /***/ }),
 /* 4 */
@@ -1187,7 +1187,7 @@ module.exports = function(a, b){
  * Module dependencies.
  */
 
-var debug = __webpack_require__(2)('socket.io-parser');
+var debug = __webpack_require__(3)('socket.io-parser');
 var Emitter = __webpack_require__(4);
 var hasBin = __webpack_require__(14);
 var binary = __webpack_require__(33);
@@ -1940,7 +1940,7 @@ var Emitter = __webpack_require__(4);
 var parser = __webpack_require__(10);
 var on = __webpack_require__(22);
 var bind = __webpack_require__(23);
-var debug = __webpack_require__(2)('socket.io-client:manager');
+var debug = __webpack_require__(3)('socket.io-client:manager');
 var indexOf = __webpack_require__(20);
 var Backoff = __webpack_require__(50);
 
@@ -2577,7 +2577,7 @@ var parseqs = __webpack_require__(7);
 var parser = __webpack_require__(5);
 var inherit = __webpack_require__(8);
 var yeast = __webpack_require__(19);
-var debug = __webpack_require__(2)('engine.io-client:polling');
+var debug = __webpack_require__(3)('engine.io-client:polling');
 
 /**
  * Module exports.
@@ -2919,7 +2919,7 @@ var Emitter = __webpack_require__(4);
 var toArray = __webpack_require__(49);
 var on = __webpack_require__(22);
 var bind = __webpack_require__(23);
-var debug = __webpack_require__(2)('socket.io-client:socket');
+var debug = __webpack_require__(3)('socket.io-client:socket');
 var parseqs = __webpack_require__(7);
 
 /**
@@ -3425,7 +3425,7 @@ new _vue2.default({
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // EXTERNAL MODULE: ./javascripts/client/utils/socket.js
-var socket = __webpack_require__(3);
+var socket = __webpack_require__(2);
 var socket_default = /*#__PURE__*/__webpack_require__.n(socket);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Setup.vue
@@ -3435,7 +3435,7 @@ var socket_default = /*#__PURE__*/__webpack_require__.n(socket);
     data() {
         return {
             pincode: { value: null, validated: true },
-            nickname: { value: null, validated: true }
+            nickname: { value: 'kees', validated: true }
         };
     },
     mounted() {
@@ -3484,7 +3484,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("span", { staticClass: "setup_button", on: { click: _vm.setup } }, [
-        _vm._v("Start spel")
+        _vm._v("Setup game")
       ])
     ]),
     _vm._v(" "),
@@ -3512,7 +3512,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("span", { staticClass: "setup_button", on: { click: _vm.join } }, [
-        _vm._v("Treed toe bij spel")
+        _vm._v("Join game")
       ])
     ])
   ])
@@ -3582,7 +3582,7 @@ var points_default = /*#__PURE__*/__webpack_require__.n(points);
     props: ['point_id'],
     data() {
         return {
-            show_ids: true
+            show_ids: false
         };
     },
     computed: {
@@ -3662,7 +3662,28 @@ var Point_render = function() {
         }
       }
     },
-    [_vm._v(_vm._s(_vm.show_ids ? _vm.point_id : ""))]
+    [
+      _vm._v("\n    " + _vm._s(_vm.show_ids ? _vm.point_id : "") + "\n    "),
+      _vm.point_id === "0,8"
+        ? _c("div", { staticClass: "point_finish" }, [
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -top-left"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -top-right"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -bottom-left"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -bottom-right"
+            })
+          ])
+        : _c("div")
+    ]
   )
 }
 var Point_staticRenderFns = []
@@ -3748,7 +3769,7 @@ if (false) {(function () {
             return this.colors[this.point_id];
         },
         color_available() {
-            return this.$store.getters.picked_colors.includes(this.color);
+            return !this.$store.getters.picked_colors.includes(this.color);
         },
         nickname() {
             return this.$store.getters.nicknames_per_color[this.color];
@@ -3776,6 +3797,9 @@ if (false) {(function () {
         isPicked() {
             return this.pawns > 0 && this.is_players_turn && this.game.action === 'put_pawn' && this.point_id === this.game.picked_pawn;
         },
+        clickPawn() {
+            this.isPickable() ? this.pickPawn() : this.cancelPawn();
+        },
         pickPawn() {
             socket_default.a.send('pick_pawn', this.point_id);
         },
@@ -3797,69 +3821,35 @@ var Home_render = function() {
       attrs: { point_id: _vm.point_id, color: _vm.color }
     },
     [
-      _vm.isPickable()
-        ? _c(
-            "div",
-            {
-              staticClass: "home_pawns --pickable",
-              on: { click: _vm.pickPawn }
-            },
-            [_vm._v(_vm._s(_vm.pawns))]
-          )
-        : _vm.isPicked()
-          ? _c(
-              "div",
-              {
-                staticClass: "home_pawns --picked",
-                on: { click: _vm.cancelPawn }
-              },
-              [_vm._v(_vm._s(_vm.pawns))]
-            )
-          : _c("div", { staticClass: "home_pawns" }, [
-              _vm._v(_vm._s(_vm.pawns))
-            ]),
-      _vm._v(" "),
-      !_vm.color_available
-        ? _c("div", [
+      _vm.color_available
+        ? [
             _vm.profile.color === null
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "home_pick-color",
-                    on: { click: _vm.pickColor }
-                  },
-                  [_vm._v("Kiezen")]
-                )
+              ? _c("div", {
+                  staticClass: "fa fa-user home_pick-color",
+                  on: { click: _vm.pickColor }
+                })
               : _vm._e(),
             _vm._v(" "),
-            _vm.profile.color === null
-              ? _c(
-                  "span",
-                  {
-                    staticStyle: {
-                      "text-align": "center",
-                      display: "block",
-                      margin: "10px 0 -10px"
-                    }
-                  },
-                  [_vm._v("of")]
-                )
-              : _vm._e(),
-            _vm._v(" "),
+            _c("div", {
+              staticClass: "fa fa-desktop home_pick-color",
+              on: { click: _vm.pickAI }
+            })
+          ]
+        : [
             _c(
               "div",
-              { staticClass: "home_pick-color", on: { click: _vm.pickAI } },
-              [_vm._v("AI")]
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.color_available
-        ? _c("div", { staticClass: "home_nickname" }, [
-            _vm._v(_vm._s(_vm.nickname))
-          ])
-        : _vm._e()
-    ]
+              { staticClass: "home_pawns" },
+              _vm._l(_vm.pawns, function(index) {
+                return _c("span", { on: { click: _vm.clickPawn } })
+              })
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "home_nickname" }, [
+              _vm._v(_vm._s(_vm.nickname))
+            ])
+          ]
+    ],
+    2
   )
 }
 var Home_staticRenderFns = []
@@ -4107,15 +4097,20 @@ if (false) {(function () {
     },
     methods: {
         render() {
+            let self = this;
             if (this.rolling) {
-                let self = this;
                 this.timeout = setTimeout(function () {
                     self.number = Math.ceil(Math.random() * 6);
                     self.render();
                 }, 20);
             } else {
-                this.$emit('rolled', this.number);
+                this.timeout = setTimeout(function () {
+                    self.$emit('rolled', self.number);
+                }, 1000);
             }
+        },
+        makeClass() {
+            return 'roll_' + this.number;
         }
     }
 });
@@ -4124,7 +4119,13 @@ var Roll_render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("span", [_vm._v(_vm._s(_vm.number))])
+  return _c(
+    "div",
+    { class: _vm.makeClass() },
+    _vm._l(_vm.number, function(index) {
+      return _c("span")
+    })
+  )
 }
 var Roll_staticRenderFns = []
 Roll_render._withStripped = true
@@ -4202,7 +4203,7 @@ if (false) {(function () {
             return this.$store.getters.profile;
         },
         thrown() {
-            return this.game.thrown === null ? '?' : this.game.thrown;
+            return this.game.thrown === null ? 'nothing' : this.game.thrown;
         }
     },
     methods: {
@@ -4218,6 +4219,12 @@ if (false) {(function () {
             this.rolling = true;
             this.$store.dispatch('setThrown', thrown);
             socket_default.a.send('set_thrown', thrown);
+        },
+        makeRollClass() {
+            return 'roll_' + this.thrown;
+        },
+        makeStatusClass() {
+            return { '-rolling': this.isRolling() };
         }
     }
 });
@@ -4230,6 +4237,7 @@ var Dice_render = function() {
     "div",
     {
       staticClass: "dice",
+      class: _vm.makeStatusClass(),
       on: {
         click: function($event) {
           _vm.stopRolling()
@@ -4242,7 +4250,13 @@ var Dice_render = function() {
             attrs: { rolling: _vm.rolling },
             on: { rolled: _vm.setRoll }
           })
-        : _c("span", [_vm._v(_vm._s(_vm.thrown))])
+        : _c(
+            "div",
+            { class: _vm.makeRollClass() },
+            _vm._l(_vm.thrown, function(index) {
+              return _vm.thrown !== null ? _c("span") : _c("span")
+            })
+          )
     ],
     1
   )
@@ -4307,7 +4321,8 @@ if (false) {(function () {
 /* harmony default export */ var Status = ({
     data() {
         return {
-            speed: this.$store.getters.game.speed
+            speed: this.$store.getters.game.speed,
+            debug: false
         };
     },
     computed: {
@@ -4350,107 +4365,109 @@ var Status_render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "status" }, [
-    _vm._v("\n\n    Action: " + _vm._s(_vm.action) + " "),
-    _c("br"),
-    _vm._v("\n    Turn: " + _vm._s(_vm.game.turn) + " "),
-    _c("br"),
-    _vm._v("\n\n    Player id: " + _vm._s(_vm.profile.id) + " "),
-    _c("br"),
-    _vm._v("\n    Game id: " + _vm._s(_vm.game.id) + " "),
-    _c("br"),
-    _vm._v("\n    Admin: " + _vm._s(_vm.game.admin) + " "),
-    _c("br"),
-    _vm._v("\n    Color: " + _vm._s(_vm.profile.color) + " "),
-    _c("br"),
-    _vm._v("\n    Picked: " + _vm._s(_vm.game.picked_pawn)),
-    _c("br"),
-    _vm._v("\n    Turn counter: " + _vm._s(_vm.game.counter.co) + " "),
-    _c("br"),
-    _vm._v("\n\n    Snelheid:\n    "),
-    _c(
-      "select",
-      {
-        directives: [
+  return _vm.debug
+    ? _c("div", { staticClass: "status" }, [
+        _vm._v("\n\n    Action: " + _vm._s(_vm.action) + " "),
+        _c("br"),
+        _vm._v("\n    Turn: " + _vm._s(_vm.game.turn) + " "),
+        _c("br"),
+        _vm._v("\n\n    Player id: " + _vm._s(_vm.profile.id) + " "),
+        _c("br"),
+        _vm._v("\n    Game id: " + _vm._s(_vm.game.id) + " "),
+        _c("br"),
+        _vm._v("\n    Admin: " + _vm._s(_vm.game.admin) + " "),
+        _c("br"),
+        _vm._v("\n    Color: " + _vm._s(_vm.profile.color) + " "),
+        _c("br"),
+        _vm._v("\n    Picked: " + _vm._s(_vm.game.picked_pawn)),
+        _c("br"),
+        _vm._v("\n    Turn counter: " + _vm._s(_vm.game.counter.co) + " "),
+        _c("br"),
+        _vm._v("\n\n    Snelheid:\n    "),
+        _c(
+          "select",
           {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.speed,
-            expression: "speed"
-          }
-        ],
-        on: {
-          change: [
-            function($event) {
-              var $$selectedVal = Array.prototype.filter
-                .call($event.target.options, function(o) {
-                  return o.selected
-                })
-                .map(function(o) {
-                  var val = "_value" in o ? o._value : o.value
-                  return val
-                })
-              _vm.speed = $event.target.multiple
-                ? $$selectedVal
-                : $$selectedVal[0]
-            },
-            function($event) {
-              _vm.setGameSpeed()
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.speed,
+                expression: "speed"
+              }
+            ],
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.speed = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+                function($event) {
+                  _vm.setGameSpeed()
+                }
+              ]
             }
+          },
+          [
+            _c("option", { attrs: { value: "100" } }, [_vm._v("Snel")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1000" } }, [_vm._v("Normaal")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3000" } }, [_vm._v("Langzaam")])
           ]
-        }
-      },
-      [
-        _c("option", { attrs: { value: "100" } }, [_vm._v("Snel")]),
+        ),
         _vm._v(" "),
-        _c("option", { attrs: { value: "1000" } }, [_vm._v("Normaal")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "3000" } }, [_vm._v("Langzaam")])
-      ]
-    ),
-    _vm._v(" "),
-    _vm.isAdmin()
-      ? _c("div", [
-          _vm.canStart()
-            ? _c(
-                "div",
-                {
-                  staticStyle: {
-                    margin: "10px",
-                    cursor: "pointer",
-                    border: "1px solid black"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.startGame()
-                    }
-                  }
-                },
-                [_vm._v("Start spel")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.canReset()
-            ? _c(
-                "div",
-                {
-                  staticStyle: {
-                    margin: "10px",
-                    cursor: "pointer",
-                    border: "1px solid black"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.resetGame()
-                    }
-                  }
-                },
-                [_vm._v("Reset spel")]
-              )
-            : _vm._e()
-        ])
-      : _vm._e()
-  ])
+        _vm.isAdmin()
+          ? _c("div", [
+              _vm.canStart()
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        margin: "10px",
+                        cursor: "pointer",
+                        border: "1px solid black"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.startGame()
+                        }
+                      }
+                    },
+                    [_vm._v("Start spel")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.canReset()
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        margin: "10px",
+                        cursor: "pointer",
+                        border: "1px solid black"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.resetGame()
+                        }
+                      }
+                    },
+                    [_vm._v("Reset spel")]
+                  )
+                : _vm._e()
+            ])
+          : _vm._e()
+      ])
+    : _vm._e()
 }
 var Status_staticRenderFns = []
 Status_render._withStripped = true
@@ -4505,6 +4522,185 @@ if (false) {(function () {
 })()}
 
 /* harmony default export */ var client_components_Status = (Status_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Controls.vue
+
+
+/* harmony default export */ var Controls = ({
+    data() {
+        return {
+            speed: this.$store.getters.game.speed
+        };
+    },
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        },
+        profile() {
+            return this.$store.getters.profile;
+        },
+        canStart() {
+            return !this.game.running;
+        },
+        canReset() {
+            return this.game.running;
+        }
+    },
+    methods: {
+        isAdmin() {
+            return this.game.admin === this.profile.id;
+        },
+        startGame() {
+            socket_default.a.send('start');
+        },
+        resetGame() {
+            socket_default.a.send('reset');
+        },
+        setGameSpeed() {
+            socket_default.a.send('set_game_speed', this.speed);
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-04862acf","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Controls.vue
+var Controls_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.isAdmin()
+    ? _c("div", { staticClass: "controls" }, [
+        _vm.canStart
+          ? _c(
+              "span",
+              {
+                staticClass: "controls_button",
+                on: {
+                  click: function($event) {
+                    _vm.startGame()
+                  }
+                }
+              },
+              [_vm._v("Start the game")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.canReset
+          ? _c(
+              "span",
+              {
+                staticClass: "controls_button",
+                on: {
+                  click: function($event) {
+                    _vm.resetGame()
+                  }
+                }
+              },
+              [_vm._v("Reset the game")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.speed,
+                expression: "speed"
+              }
+            ],
+            staticClass: "controls_speed",
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.speed = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+                function($event) {
+                  _vm.setGameSpeed()
+                }
+              ]
+            }
+          },
+          [
+            _c("option", { attrs: { value: "100" } }, [_vm._v("Speed: fast")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1000" } }, [
+              _vm._v("Speed: normal")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3000" } }, [_vm._v("Speed: slow")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "controls_pincode" }, [
+          _vm._v("Pincode: " + _vm._s(_vm.game.id))
+        ])
+      ])
+    : _vm._e()
+}
+var Controls_staticRenderFns = []
+Controls_render._withStripped = true
+var Controls_esExports = { render: Controls_render, staticRenderFns: Controls_staticRenderFns }
+/* harmony default export */ var components_Controls = (Controls_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-04862acf", Controls_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Controls.vue
+var Controls_disposed = false
+var Controls_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Controls___vue_template_functional__ = false
+/* styles */
+var Controls___vue_styles__ = null
+/* scopeId */
+var Controls___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Controls___vue_module_identifier__ = null
+var Controls_Component = Controls_normalizeComponent(
+  Controls,
+  components_Controls,
+  Controls___vue_template_functional__,
+  Controls___vue_styles__,
+  Controls___vue_scopeId__,
+  Controls___vue_module_identifier__
+)
+Controls_Component.options.__file = "javascripts\\client\\components\\Controls.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-04862acf", Controls_Component.options)
+  } else {
+    hotAPI.reload("data-v-04862acf", Controls_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Controls_disposed = true
+  })
+})()}
+
+/* harmony default export */ var client_components_Controls = (Controls_Component.exports);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/WinnerPopup.vue
 
@@ -4626,11 +4822,13 @@ if (false) {(function () {
 
 
 
+
 /* harmony default export */ var Game = ({
     components: {
         Setup: client_components_Setup,
         Board: client_components_Board,
         Dice: client_components_Dice,
+        Controls: client_components_Controls,
         Status: client_components_Status,
         WinnerPopup: client_components_WinnerPopup
     },
@@ -4672,6 +4870,8 @@ var Game_render = function() {
       _vm.game.id === null
         ? _c("setup")
         : [
+            _c("controls"),
+            _vm._v(" "),
             _c("board"),
             _vm._v(" "),
             _c("dice"),
@@ -4751,7 +4951,7 @@ if (false) {(function () {
 var url = __webpack_require__(29);
 var parser = __webpack_require__(10);
 var Manager = __webpack_require__(16);
-var debug = __webpack_require__(2)('socket.io-client');
+var debug = __webpack_require__(3)('socket.io-client');
 
 /**
  * Module exports.
@@ -4849,7 +5049,7 @@ exports.Socket = __webpack_require__(21);
  */
 
 var parseuri = __webpack_require__(13);
-var debug = __webpack_require__(2)('socket.io-client:url');
+var debug = __webpack_require__(3)('socket.io-client:url');
 
 /**
  * Module exports.
@@ -5483,7 +5683,7 @@ module.exports.parser = __webpack_require__(5);
 
 var transports = __webpack_require__(17);
 var Emitter = __webpack_require__(4);
-var debug = __webpack_require__(2)('engine.io-client:socket');
+var debug = __webpack_require__(3)('engine.io-client:socket');
 var index = __webpack_require__(20);
 var parser = __webpack_require__(5);
 var parseuri = __webpack_require__(13);
@@ -6258,7 +6458,7 @@ var XMLHttpRequest = __webpack_require__(11);
 var Polling = __webpack_require__(18);
 var Emitter = __webpack_require__(4);
 var inherit = __webpack_require__(8);
-var debug = __webpack_require__(2)('engine.io-client:polling-xhr');
+var debug = __webpack_require__(3)('engine.io-client:polling-xhr');
 
 /**
  * Module exports.
@@ -7476,7 +7676,7 @@ var parser = __webpack_require__(5);
 var parseqs = __webpack_require__(7);
 var inherit = __webpack_require__(8);
 var yeast = __webpack_require__(19);
-var debug = __webpack_require__(2)('engine.io-client:websocket');
+var debug = __webpack_require__(3)('engine.io-client:websocket');
 var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
@@ -8900,6 +9100,7 @@ exports.default = {
         thrown: null,
         picked_pawn: null,
         won: null,
+        running: false,
         counter: {
             color: null,
             co: 0
@@ -8993,7 +9194,7 @@ exports.default = {
         state.game.admin = obj.admin;
         state.game.turn = obj.turn;
         state.game.action = obj.action;
-        state.game.started = obj.started;
+        state.game.running = obj.running;
         state.game.thrown = obj.thrown;
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;
@@ -9004,7 +9205,7 @@ exports.default = {
     updateGame: function updateGame(state, obj) {
         state.game.turn = obj.turn;
         state.game.action = obj.action;
-        state.game.started = obj.started;
+        state.game.running = obj.running;
         state.game.thrown = obj.thrown;
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;
@@ -9038,7 +9239,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _socket = __webpack_require__(3);
+var _socket = __webpack_require__(2);
 
 var _socket2 = _interopRequireDefault(_socket);
 

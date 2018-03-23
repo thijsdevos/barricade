@@ -26,7 +26,7 @@
                 return this.colors[this.point_id];
             },
             color_available() {
-                return this.$store.getters.picked_colors.includes(this.color);
+                return !this.$store.getters.picked_colors.includes(this.color);
             },
             nickname() {
                 return this.$store.getters.nicknames_per_color[this.color];
@@ -54,6 +54,9 @@
             isPicked() {
                 return this.pawns > 0 && this.is_players_turn && this.game.action === 'put_pawn' && this.point_id === this.game.picked_pawn;
             },
+            clickPawn() {
+                this.isPickable() ? this.pickPawn() : this.cancelPawn();
+            },
             pickPawn() {
                 Socket.send('pick_pawn', this.point_id);
             },
@@ -66,18 +69,16 @@
 
 <template>
     <div class="home" :point_id="point_id" :color="color" :class="makeClass()">
+        <template v-if="color_available">
+            <div v-if="profile.color === null" v-on:click="pickColor" class="fa fa-user home_pick-color"></div>
+            <div v-on:click="pickAI" class="fa fa-desktop home_pick-color"></div>
+        </template>
 
-        <div v-if="isPickable()" v-on:click="pickPawn" class="home_pawns --pickable">{{ pawns }}</div>
-        <div v-else-if="isPicked()" v-on:click="cancelPawn" class="home_pawns --picked">{{ pawns }}</div>
-        <div v-else class="home_pawns">{{ pawns }}</div>
-
-        <div v-if="!color_available">
-            <div v-if="profile.color === null" v-on:click="pickColor" class="home_pick-color">Kiezen</div>
-            <span v-if="profile.color === null" style="text-align: center; display: block; margin: 10px 0 -10px;">of</span>
-            <div v-on:click="pickAI" class="home_pick-color">AI</div>
-        </div>
-
-        <div v-if="color_available" class="home_nickname">{{ nickname }}</div>
-
+        <template v-else>
+            <div class="home_pawns">
+                <span v-for="index in pawns" v-on:click="clickPawn"></span>
+            </div>
+            <div class="home_nickname">{{ nickname }}</div>
+        </template>
     </div>
 </template>

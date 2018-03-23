@@ -4,7 +4,7 @@
         data() {
             return {
                 pincode: { value: null, validated: true },
-                nickname: { value: null, validated: true }
+                nickname: { value: 'kees', validated: true }
             }
         },
         mounted(){
@@ -28,11 +28,11 @@
     <div class="setup">
         <div class="setup_row">
             <input v-model="nickname.value" class="setup_input" placeholder="Nickname" ref="nickname" />
-            <span v-on:click="setup" class="setup_button">Start spel</span>
+            <span v-on:click="setup" class="setup_button">Setup game</span>
         </div>
         <div class="setup_row">
             <input v-model="pincode.value" class="setup_input" placeholder="Pincode" />
-            <span v-on:click="join" class="setup_button">Treed toe bij spel</span>
+            <span v-on:click="join" class="setup_button">Join game</span>
         </div>
     </div>
 </template>

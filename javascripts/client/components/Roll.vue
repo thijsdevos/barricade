@@ -11,24 +11,31 @@
             this.render();
         },
         beforeDestroy() {
-          clearTimeout(this.timeout);
+            clearTimeout(this.timeout);
         },
         methods: {
             render() {
+                let self = this;
                 if(this.rolling) {
-                    let self = this;
                     this.timeout = setTimeout(function () {
                         self.number = Math.ceil(Math.random() * 6);
                         self.render();
                     }, 20);
                 } else {
-                    this.$emit('rolled', this.number);
+                    this.timeout = setTimeout(function () {
+                        self.$emit('rolled', self.number);
+                    }, 1000);
                 }
+            },
+            makeClass() {
+                return 'roll_' + this.number;
             }
         }
     }
 </script>
 
 <template>
-    <span>{{ number }}</span>
+    <div :class="makeClass()">
+        <span v-for="index in number"></span>
+    </div>
 </template>

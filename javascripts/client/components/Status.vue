@@ -3,7 +3,8 @@
     export default {
         data() {
             return {
-                speed: this.$store.getters.game.speed
+                speed: this.$store.getters.game.speed,
+                debug: false
             }
         },
         computed: {
@@ -44,7 +45,7 @@
 </script>
 
 <template>
-    <div class="status">
+    <div v-if="debug" class="status">
 
         Action: {{ action }} <br />
         Turn: {{ game.turn }} <br />

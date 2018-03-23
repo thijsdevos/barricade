@@ -14,6 +14,7 @@ export default {
         thrown: null,
         picked_pawn: null,
         won: null,
+        running: false,
         counter: {
             color: null,
             co: 0

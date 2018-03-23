@@ -4,7 +4,7 @@
         props: ['point_id'],
         data() {
             return {
-                show_ids: true
+                show_ids: false
             }
         },
         computed: {
@@ -70,5 +70,14 @@
 </script>
 
 <template>
-    <div v-on:click="clickPawn()" class="point" :class="makeClass()" :point_id="point_id">{{ show_ids ? point_id : '' }}</div>
+    <div v-on:click="clickPawn()" class="point" :class="makeClass()" :point_id="point_id">
+        {{ show_ids ? point_id : '' }}
+        <div v-if="point_id === '0,8'" class="point_finish">
+            <span class="point_finish_quarter-circle -top-left"></span>
+            <span class="point_finish_quarter-circle -top-right"></span>
+            <span class="point_finish_quarter-circle -bottom-left"></span>
+            <span class="point_finish_quarter-circle -bottom-right"></span>
+        </div>
+        <div v-else></div>
+    </div>
 </template>

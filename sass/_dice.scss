@@ -1,16 +1,117 @@
 .dice {
   position: absolute;
-  padding: 20px;
-  font-size: 20px;
-  right: -100px;
-  top: 0;
-  border: 1px solid #000000;
-  border-radius: 5px;
-  text-align: center;
-  width: 65px;
+  right: 0;
+  top: 7px;
+  //border: 1px solid #000000;
+  box-shadow: 0 0 2px 1px #000000;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
+  background: #ffffff;
 }
 
 .dice:hover {
   background: #dddddd;
 }
+
+.dice div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.dice.-rolling {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(255,255,255,0.8);
+  border-radius: 0;
+  cursor: default;
+  width: auto;
+  height: auto;
+  border: 0;
+  box-shadow: none;
+  z-index: 20;
+}
+
+.dice.-rolling div {
+  width: 100px;
+  height: 100px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  right: auto;
+  bottom: auto;
+  box-shadow: 0 0 2px 1px #000000;
+  border-radius: 7px;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.dice span {
+  position: absolute;
+  width: 17%;
+  height: 17%;
+  border-radius: 50%;
+  background: #000000;
+}
+
+.roll_nothing span,
+.roll_1 span,
+.roll_3 span:nth-child(2),
+.roll_5 span:nth-child(4) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.roll_2 span:first-child,
+.roll_3 span:first-child,
+.roll_4 span:first-child,
+.roll_5 span:first-child,
+.roll_6 span:first-child {
+  top: 7px;
+  right: 7px;
+}
+
+.roll_2 span:last-child,
+.roll_3 span:last-child,
+.roll_4 span:last-child,
+.roll_5 span:last-child,
+.roll_6 span:last-child {
+  bottom: 7px;
+  left: 7px;
+}
+
+.roll_4 span:nth-child(2),
+.roll_5 span:nth-child(2),
+.roll_6 span:nth-child(2) {
+  top: 7px;
+  left: 7px;
+}
+
+.roll_4 span:nth-child(3),
+.roll_5 span:nth-child(3),
+.roll_6 span:nth-child(3) {
+  bottom: 7px;
+  right: 7px;
+}
+
+.roll_6 span:nth-child(4) {
+  left: 7px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.roll_6 span:nth-child(5) {
+  right: 7px;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+
+

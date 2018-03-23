@@ -1,0 +1,34 @@
+.controls {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  z-index: 10;
+}
+
+.controls_button {
+  padding: 12px 14px;
+  font-size: 16px;
+  background: #2db4ff;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  float: left;
+  margin-right: 14px;
+  &:hover {
+    background: #0b47f1;
+  }
+}
+
+.controls_speed {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  float: left;
+  margin-right: 14px;
+}
+
+.controls_pincode {
+  float: left;
+  margin-top: 13px;
+}

@@ -1,18 +1,26 @@
 .home {
   position: absolute;
   transform: translate(-50%);
+  width: 20%;
+  top: 20px;
+  padding-bottom: 10px;
 }
 
 .home_pawns {
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  border: 0;
-  color: #ffffff;
-  text-align: center;
-  padding: 15px 0;
-  font-size: 28px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
 
+.home_pawns span {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.--is-players-turn .home_pawns span {
+  cursor: pointer;
 }
 
 .home_pawns.--available {
@@ -23,64 +31,85 @@
   border: 5px solid #000000;
 }
 
-.--is-players-turn .home_pawns {
-  border: 5px solid black;
+.--is-players-turn {
+  border-bottom: 5px solid black;
 }
 
-.--is-players-turn .home_pawns.--pickable {
-  border: 5px solid orange;
-  cursor: pointer;
-  &:hover {
-    border-color: #0a0a0a;
-  }
-}
-
+/*
 .--is-players-turn .home_pawns.--picked {
   border: 5px solid lightpink;
 }
+*/
 
 .home[color="red"] {
-  left: 14%;
-  .home_pawns {
-    background: red;
+  left: 14.35%;
+  .home_pawns span, .home_pick-color {
+    background: $red;
+  }
+  &.--is-players-turn .home_pawns span:hover, .home_pick-color:hover {
+    background: lighten($red, 10%);
   }
 }
 
 .home[color="green"] {
-  left: 38%;
-  .home_pawns {
-    background: green;
+  left: 38.35%;
+  .home_pawns span, .home_pick-color {
+    background: $green;
+  }
+  &.--is-players-turn .home_pawns span:hover, .home_pick-color:hover {
+    background: lighten($green, 10%);
   }
 }
 
 .home[color="yellow"] {
-  left: 62%;
-  .home_pawns {
-    background: yellow;
+  left: 62.35%;
+  .home_pawns span, .home_pick-color {
+    background: $yellow;
     color: #000000;
+  }
+  &.--is-players-turn .home_pawns span:hover, .home_pick-color:hover {
+    background: lighten($yellow, 10%);
   }
 }
 
 .home[color="blue"] {
-  left: 86%;
-  .home_pawns {
-    background: blue;
+  left: 86.35%;
+  .home_pawns span, .home_pick-color {
+    background: $blue;
+  }
+  &.--is-players-turn .home_pawns span:hover, .home_pick-color:hover {
+    background: lighten($blue, 10%);
   }
 }
 
 .home_pick-color {
   text-align: center;
-  margin: 20px 0 0 -5px;
-  padding: 5px 10px;
-  background: #2db4ff;
+  margin: 0 2.5px 0 2.5px;
   color: #ffffff;
   cursor: pointer;
-  &:hover {
-    background: #0b47f1;
+  font-size: 20px;
+  padding: 20px;
+  border-radius: 50%;
+  
+  &:first-child {
+    float: left;
+    margin-left: 20%;
+  }
+  
+  &:last-child {
+    float: right;
+    margin-right: 20%;
   }
 }
 
 .home_nickname {
   text-align: center;
   margin: 20px 0 0 -5px;
+}
+
+.home_pick-color_or {
+  float: left;
+  margin: 35px 15px 0 10px;
+  font-size: 14px;
+  color: #ffffff;
 }

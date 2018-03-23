@@ -3,6 +3,7 @@
     import Board from './Board.vue';
     import Dice from './Dice.vue';
     import Status from './Status.vue';
+    import Controls from './Controls.vue';
     import WinnerPopup from './WinnerPopup.vue';
     import Socket from '../utils/socket';
 
@@ -11,6 +12,7 @@
             Setup,
             Board,
             Dice,
+            Controls,
             Status,
             WinnerPopup
         },
@@ -36,6 +38,7 @@
     <div class="game">
         <setup v-if="game.id === null"></setup>
         <template v-else>
+            <controls></controls>
             <board></board>
             <dice></dice>
             <status></status>
