@@ -17,7 +17,7 @@
                 return this.game.admin === this.profile.id;
             },
             resetGame() {
-                Socket.send('reset_game');
+                Socket.send('reset');
             }
         }
     }
@@ -27,8 +27,8 @@
     <div>
         <div class="popup-background"></div>
         <div class="winner-popup">
-            De winnaar is {{ nickname_winner }}!
-            <div v-if="isAdmin()" v-on:click="resetGame()" style="margin: 10px; cursor: pointer; border: 1px solid black;">Reset spel</div>
+            <p class="winner-popup_text">De winnaar is {{ nickname_winner }}!</p>
+            <div v-if="isAdmin()" v-on:click="resetGame()" class="winner-popup_button">Reset spel</div>
         </div>
     </div>
 </template>

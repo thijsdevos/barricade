@@ -1,5 +1,5 @@
 <script>
-    import Socket from '../utils/socket';
+    import Socket from '../../utils/socket';
     export default {
         props: ['point_id'],
         data() {

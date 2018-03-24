@@ -23,6 +23,17 @@ input, textarea {
   position: relative;
   height: 100%; }
 
+.button, .setup_button, .controls_button, .winner-popup_button {
+  padding: 12px 15px;
+  font-size: 16px;
+  background: #2db4ff;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center; }
+  .button:hover, .setup_button:hover, .controls_button:hover, .winner-popup_button:hover {
+    background: #0b47f1; }
+
 .row {
   position: relative;
   height: 6.4%; }
@@ -297,11 +308,6 @@ input, textarea {
 .\--is-players-turn {
   border-bottom: 5px solid black; }
 
-/*
-.--is-players-turn .home_pawns.--picked {
-  border: 5px solid lightpink;
-}
-*/
 .home[color="red"] {
   left: 14.35%; }
   .home[color="red"] .home_pawns span, .home[color="red"] .home_pick-color {
@@ -476,17 +482,8 @@ input, textarea {
   float: left; }
 
 .setup_button {
-  padding: 12px 15px;
-  font-size: 16px;
-  background: #2db4ff;
-  color: #ffffff;
-  border-radius: 10px;
-  cursor: pointer;
-  text-align: center;
   min-width: 120px;
   float: left; }
-  .setup_button:hover {
-    background: #0b47f1; }
 
 .controls {
   position: absolute;
@@ -495,12 +492,6 @@ input, textarea {
   z-index: 10; }
 
 .controls_button {
-  padding: 12px 14px;
-  font-size: 16px;
-  background: #2db4ff;
-  color: #ffffff;
-  border-radius: 10px;
-  cursor: pointer;
   float: left;
   margin-right: 14px; }
   .controls_button:hover {
@@ -525,16 +516,22 @@ input, textarea {
   right: -300px;
   left: 0;
   bottom: -300px;
-  background: rgba(255, 255, 255, 0.5); }
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 30; }
 
 .winner-popup {
+  border-radius: 10px;
   position: absolute;
   background: #ffffff;
   padding: 50px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid #2db4ff; }
+  z-index: 31;
+  box-shadow: 0 0 2px 1px #000000; }
+
+.winner-popup_text {
+  margin-bottom: 14px; }
 
 .status {
   position: absolute;

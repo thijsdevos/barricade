@@ -6,12 +6,7 @@
 }
 
 .controls_button {
-  padding: 12px 14px;
-  font-size: 16px;
-  background: #2db4ff;
-  color: #ffffff;
-  border-radius: 10px;
-  cursor: pointer;
+  @extend .button;
   float: left;
   margin-right: 14px;
   &:hover {

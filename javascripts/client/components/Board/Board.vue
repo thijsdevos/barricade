@@ -1,5 +1,5 @@
 <script>
-    import Points from '../../common/points';
+    import Points from '../../../common/points';
     import Row from './Row.vue';
 
     export default {

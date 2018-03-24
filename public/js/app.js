@@ -3399,7 +3399,7 @@ var _vue = __webpack_require__(9);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _Game = __webpack_require__(27);
+var _Game = __webpack_require__(70);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -3418,1528 +3418,7 @@ new _vue2.default({
 /***/ }),
 /* 25 */,
 /* 26 */,
-/* 27 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-
-// EXTERNAL MODULE: ./javascripts/client/utils/socket.js
-var socket = __webpack_require__(2);
-var socket_default = /*#__PURE__*/__webpack_require__.n(socket);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Setup.vue
-
-
-/* harmony default export */ var Setup = ({
-    data() {
-        return {
-            pincode: { value: null, validated: true },
-            nickname: { value: 'kees', validated: true }
-        };
-    },
-    mounted() {
-        this.$refs.nickname.focus();
-    },
-    methods: {
-        setup() {
-            socket_default.a.send('setup', this.nickname.value);
-        },
-        join() {
-            socket_default.a.send('join', {
-                pincode: this.pincode.value,
-                nickname: this.nickname.value
-            });
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-403721b4","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Setup.vue
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "setup" }, [
-    _c("div", { staticClass: "setup_row" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.nickname.value,
-            expression: "nickname.value"
-          }
-        ],
-        ref: "nickname",
-        staticClass: "setup_input",
-        attrs: { placeholder: "Nickname" },
-        domProps: { value: _vm.nickname.value },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.nickname, "value", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "setup_button", on: { click: _vm.setup } }, [
-        _vm._v("Setup game")
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "setup_row" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.pincode.value,
-            expression: "pincode.value"
-          }
-        ],
-        staticClass: "setup_input",
-        attrs: { placeholder: "Pincode" },
-        domProps: { value: _vm.pincode.value },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.pincode, "value", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("span", { staticClass: "setup_button", on: { click: _vm.join } }, [
-        _vm._v("Join game")
-      ])
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ var components_Setup = (esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-403721b4", esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Setup.vue
-var disposed = false
-var normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  Setup,
-  components_Setup,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "javascripts\\client\\components\\Setup.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-403721b4", Component.options)
-  } else {
-    hotAPI.reload("data-v-403721b4", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Setup = (Component.exports);
-
-// EXTERNAL MODULE: ./javascripts/common/points.js
-var points = __webpack_require__(51);
-var points_default = /*#__PURE__*/__webpack_require__.n(points);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Point.vue
-
-
-/* harmony default export */ var Point = ({
-    props: ['point_id'],
-    data() {
-        return {
-            show_ids: false
-        };
-    },
-    computed: {
-        game() {
-            return this.$store.getters.game;
-        },
-        profile() {
-            return this.$store.getters.profile;
-        },
-        points() {
-            return this.$store.getters.board.points;
-        },
-        possible_moves() {
-            return this.$store.getters.possible_moves;
-        },
-        row() {
-            return parseInt(this.point_id.split(',')[0]);
-        }
-    },
-    methods: {
-        isPuttableForPawn() {
-            return this.possible_moves.includes(this.point_id);
-        },
-        isPuttableForBarricade() {
-            return this.game.action === 'put_barricade' && this.game.turn === this.profile.color && this.row < 12 && this.points[this.point_id] === null;
-        },
-        isPickable() {
-            return this.points[this.point_id] === this.game.turn && this.game.turn === this.profile.color && this.game.action === 'pick_pawn';
-        },
-        isPicked() {
-            return this.point_id === this.game.picked_pawn && this.game.action === 'put_pawn';
-        },
-        makeClass() {
-            return {
-                '--blocked': this.points[this.point_id] === 'blocked',
-                '--blue': this.points[this.point_id] === 'blue',
-                '--red': this.points[this.point_id] === 'red',
-                '--yellow': this.points[this.point_id] === 'yellow',
-                '--green': this.points[this.point_id] === 'green',
-                '--pickable': this.isPickable(),
-                '--picked': this.isPicked(),
-                '--puttable': this.isPuttableForPawn(),
-                '--puttable-barricade': this.isPuttableForBarricade()
-            };
-        },
-        clickPawn() {
-            let action = '';
-            if (this.isPickable()) {
-                action = 'pick_pawn';
-            } else if (this.isPicked()) {
-                action = 'cancel_pawn';
-            } else if (this.isPuttableForPawn()) {
-                action = 'put_pawn';
-            } else if (this.isPuttableForBarricade()) {
-                action = 'put_barricade';
-            } else {
-                return false;
-            }
-            socket_default.a.send(action, this.point_id);
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-40977b47","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Point.vue
-var Point_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "point",
-      class: _vm.makeClass(),
-      attrs: { point_id: _vm.point_id },
-      on: {
-        click: function($event) {
-          _vm.clickPawn()
-        }
-      }
-    },
-    [
-      _vm._v("\n    " + _vm._s(_vm.show_ids ? _vm.point_id : "") + "\n    "),
-      _vm.point_id === "0,8"
-        ? _c("div", { staticClass: "point_finish" }, [
-            _c("span", {
-              staticClass: "point_finish_quarter-circle -top-left"
-            }),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "point_finish_quarter-circle -top-right"
-            }),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "point_finish_quarter-circle -bottom-left"
-            }),
-            _vm._v(" "),
-            _c("span", {
-              staticClass: "point_finish_quarter-circle -bottom-right"
-            })
-          ])
-        : _c("div")
-    ]
-  )
-}
-var Point_staticRenderFns = []
-Point_render._withStripped = true
-var Point_esExports = { render: Point_render, staticRenderFns: Point_staticRenderFns }
-/* harmony default export */ var components_Point = (Point_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-40977b47", Point_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Point.vue
-var Point_disposed = false
-var Point_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Point___vue_template_functional__ = false
-/* styles */
-var Point___vue_styles__ = null
-/* scopeId */
-var Point___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Point___vue_module_identifier__ = null
-var Point_Component = Point_normalizeComponent(
-  Point,
-  components_Point,
-  Point___vue_template_functional__,
-  Point___vue_styles__,
-  Point___vue_scopeId__,
-  Point___vue_module_identifier__
-)
-Point_Component.options.__file = "javascripts\\client\\components\\Point.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-40977b47", Point_Component.options)
-  } else {
-    hotAPI.reload("data-v-40977b47", Point_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Point_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Point = (Point_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Home.vue
-
-
-/* harmony default export */ var Home = ({
-    props: ['point_id'],
-    data() {
-        return {
-            colors: {
-                '14,2': 'red',
-                '14,6': 'green',
-                '14,10': 'yellow',
-                '14,14': 'blue'
-            }
-        };
-    },
-    computed: {
-        game() {
-            return this.$store.getters.game;
-        },
-        profile() {
-            return this.$store.getters.profile;
-        },
-        pawns() {
-            return this.$store.getters.board.home[this.point_id];
-        },
-        color() {
-            return this.colors[this.point_id];
-        },
-        color_available() {
-            return !this.$store.getters.picked_colors.includes(this.color);
-        },
-        nickname() {
-            return this.$store.getters.nicknames_per_color[this.color];
-        },
-        is_players_turn() {
-            return this.game.turn === this.color;
-        }
-    },
-    methods: {
-        isAdmin() {
-            return this.game.admin === this.profile.id;
-        },
-        pickColor() {
-            socket_default.a.send('pick_color', this.color);
-        },
-        pickAI() {
-            socket_default.a.send('pick_ai', this.color);
-        },
-        makeClass() {
-            return { '--is-players-turn': this.is_players_turn };
-        },
-        isPickable() {
-            return this.pawns > 0 && this.is_players_turn && this.game.turn === this.profile.color && this.game.action === 'pick_pawn';
-        },
-        isPicked() {
-            return this.pawns > 0 && this.is_players_turn && this.game.action === 'put_pawn' && this.point_id === this.game.picked_pawn;
-        },
-        clickPawn() {
-            this.isPickable() ? this.pickPawn() : this.cancelPawn();
-        },
-        pickPawn() {
-            socket_default.a.send('pick_pawn', this.point_id);
-        },
-        cancelPawn() {
-            socket_default.a.send('cancel_pawn', this.point_id);
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-662904f8","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Home.vue
-var Home_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "home",
-      class: _vm.makeClass(),
-      attrs: { point_id: _vm.point_id, color: _vm.color }
-    },
-    [
-      _vm.color_available
-        ? [
-            _vm.profile.color === null
-              ? _c("div", {
-                  staticClass: "fa fa-user home_pick-color",
-                  on: { click: _vm.pickColor }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "fa fa-desktop home_pick-color",
-              on: { click: _vm.pickAI }
-            })
-          ]
-        : [
-            _c(
-              "div",
-              { staticClass: "home_pawns" },
-              _vm._l(_vm.pawns, function(index) {
-                return _c("span", { on: { click: _vm.clickPawn } })
-              })
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "home_nickname" }, [
-              _vm._v(_vm._s(_vm.nickname))
-            ])
-          ]
-    ],
-    2
-  )
-}
-var Home_staticRenderFns = []
-Home_render._withStripped = true
-var Home_esExports = { render: Home_render, staticRenderFns: Home_staticRenderFns }
-/* harmony default export */ var components_Home = (Home_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-662904f8", Home_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Home.vue
-var Home_disposed = false
-var Home_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Home___vue_template_functional__ = false
-/* styles */
-var Home___vue_styles__ = null
-/* scopeId */
-var Home___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Home___vue_module_identifier__ = null
-var Home_Component = Home_normalizeComponent(
-  Home,
-  components_Home,
-  Home___vue_template_functional__,
-  Home___vue_styles__,
-  Home___vue_scopeId__,
-  Home___vue_module_identifier__
-)
-Home_Component.options.__file = "javascripts\\client\\components\\Home.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-662904f8", Home_Component.options)
-  } else {
-    hotAPI.reload("data-v-662904f8", Home_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Home_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Home = (Home_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Row.vue
-
-
-
-
-/* harmony default export */ var Row = ({
-    components: {
-        Home: client_components_Home,
-        Point: client_components_Point
-    },
-    props: ['row', 'row_id'],
-    methods: {
-        isHome(row_id) {
-            return row_id === 14;
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-dec4335e","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Row.vue
-var Row_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "row", attrs: { row_id: _vm.row_id } },
-    [
-      _vm._l(_vm.row, function(i) {
-        return [
-          _vm.isHome(_vm.row_id)
-            ? _c("home", { attrs: { point_id: _vm.row_id + "," + i } })
-            : _c("point", { attrs: { point_id: _vm.row_id + "," + i } })
-        ]
-      })
-    ],
-    2
-  )
-}
-var Row_staticRenderFns = []
-Row_render._withStripped = true
-var Row_esExports = { render: Row_render, staticRenderFns: Row_staticRenderFns }
-/* harmony default export */ var components_Row = (Row_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-dec4335e", Row_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Row.vue
-var Row_disposed = false
-var Row_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Row___vue_template_functional__ = false
-/* styles */
-var Row___vue_styles__ = null
-/* scopeId */
-var Row___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Row___vue_module_identifier__ = null
-var Row_Component = Row_normalizeComponent(
-  Row,
-  components_Row,
-  Row___vue_template_functional__,
-  Row___vue_styles__,
-  Row___vue_scopeId__,
-  Row___vue_module_identifier__
-)
-Row_Component.options.__file = "javascripts\\client\\components\\Row.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-dec4335e", Row_Component.options)
-  } else {
-    hotAPI.reload("data-v-dec4335e", Row_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Row_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Row = (Row_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Board.vue
-
-
-
-
-/* harmony default export */ var Board = ({
-    components: {
-        Row: client_components_Row
-    },
-    data() {
-        return {
-            points: points_default.a
-        };
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-f8cd0cc6","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Board.vue
-var Board_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "board" },
-    _vm._l(_vm.points, function(row, row_id) {
-      return _c("row", { key: row_id, attrs: { row_id: row_id, row: row } })
-    })
-  )
-}
-var Board_staticRenderFns = []
-Board_render._withStripped = true
-var Board_esExports = { render: Board_render, staticRenderFns: Board_staticRenderFns }
-/* harmony default export */ var components_Board = (Board_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f8cd0cc6", Board_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Board.vue
-var Board_disposed = false
-var Board_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Board___vue_template_functional__ = false
-/* styles */
-var Board___vue_styles__ = null
-/* scopeId */
-var Board___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Board___vue_module_identifier__ = null
-var Board_Component = Board_normalizeComponent(
-  Board,
-  components_Board,
-  Board___vue_template_functional__,
-  Board___vue_styles__,
-  Board___vue_scopeId__,
-  Board___vue_module_identifier__
-)
-Board_Component.options.__file = "javascripts\\client\\components\\Board.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f8cd0cc6", Board_Component.options)
-  } else {
-    hotAPI.reload("data-v-f8cd0cc6", Board_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Board_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Board = (Board_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Roll.vue
-
-/* harmony default export */ var Roll = ({
-    props: ['rolling'],
-    data() {
-        return {
-            number: null,
-            timeout: null
-        };
-    },
-    mounted() {
-        this.render();
-    },
-    beforeDestroy() {
-        clearTimeout(this.timeout);
-    },
-    methods: {
-        render() {
-            let self = this;
-            if (this.rolling) {
-                this.timeout = setTimeout(function () {
-                    self.number = Math.ceil(Math.random() * 6);
-                    self.render();
-                }, 20);
-            } else {
-                this.timeout = setTimeout(function () {
-                    self.$emit('rolled', self.number);
-                }, 1000);
-            }
-        },
-        makeClass() {
-            return 'roll_' + this.number;
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-73a29196","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Roll.vue
-var Roll_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { class: _vm.makeClass() },
-    _vm._l(_vm.number, function(index) {
-      return _c("span")
-    })
-  )
-}
-var Roll_staticRenderFns = []
-Roll_render._withStripped = true
-var Roll_esExports = { render: Roll_render, staticRenderFns: Roll_staticRenderFns }
-/* harmony default export */ var components_Roll = (Roll_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-73a29196", Roll_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Roll.vue
-var Roll_disposed = false
-var Roll_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Roll___vue_template_functional__ = false
-/* styles */
-var Roll___vue_styles__ = null
-/* scopeId */
-var Roll___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Roll___vue_module_identifier__ = null
-var Roll_Component = Roll_normalizeComponent(
-  Roll,
-  components_Roll,
-  Roll___vue_template_functional__,
-  Roll___vue_styles__,
-  Roll___vue_scopeId__,
-  Roll___vue_module_identifier__
-)
-Roll_Component.options.__file = "javascripts\\client\\components\\Roll.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-73a29196", Roll_Component.options)
-  } else {
-    hotAPI.reload("data-v-73a29196", Roll_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Roll_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Roll = (Roll_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Dice.vue
-
-
-
-
-/* harmony default export */ var Dice = ({
-    components: {
-        Roll: client_components_Roll
-    },
-    data() {
-        return {
-            rolling: true
-        };
-    },
-    computed: {
-        game() {
-            return this.$store.getters.game;
-        },
-        profile() {
-            return this.$store.getters.profile;
-        },
-        thrown() {
-            return this.game.thrown === null ? 'nothing' : this.game.thrown;
-        }
-    },
-    methods: {
-        isRolling() {
-            return this.game.turn === this.profile.color && this.game.action === 'throw' && this.game.thrown === null;
-        },
-        stopRolling() {
-            if (this.game.turn === this.profile.color) {
-                this.rolling = false;
-            }
-        },
-        setRoll(thrown) {
-            this.rolling = true;
-            this.$store.dispatch('setThrown', thrown);
-            socket_default.a.send('set_thrown', thrown);
-        },
-        makeRollClass() {
-            return 'roll_' + this.thrown;
-        },
-        makeStatusClass() {
-            return { '-rolling': this.isRolling() };
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-782e77c0","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Dice.vue
-var Dice_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "dice",
-      class: _vm.makeStatusClass(),
-      on: {
-        click: function($event) {
-          _vm.stopRolling()
-        }
-      }
-    },
-    [
-      _vm.isRolling()
-        ? _c("roll", {
-            attrs: { rolling: _vm.rolling },
-            on: { rolled: _vm.setRoll }
-          })
-        : _c(
-            "div",
-            { class: _vm.makeRollClass() },
-            _vm._l(_vm.thrown, function(index) {
-              return _vm.thrown !== null ? _c("span") : _c("span")
-            })
-          )
-    ],
-    1
-  )
-}
-var Dice_staticRenderFns = []
-Dice_render._withStripped = true
-var Dice_esExports = { render: Dice_render, staticRenderFns: Dice_staticRenderFns }
-/* harmony default export */ var components_Dice = (Dice_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-782e77c0", Dice_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Dice.vue
-var Dice_disposed = false
-var Dice_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Dice___vue_template_functional__ = false
-/* styles */
-var Dice___vue_styles__ = null
-/* scopeId */
-var Dice___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Dice___vue_module_identifier__ = null
-var Dice_Component = Dice_normalizeComponent(
-  Dice,
-  components_Dice,
-  Dice___vue_template_functional__,
-  Dice___vue_styles__,
-  Dice___vue_scopeId__,
-  Dice___vue_module_identifier__
-)
-Dice_Component.options.__file = "javascripts\\client\\components\\Dice.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-782e77c0", Dice_Component.options)
-  } else {
-    hotAPI.reload("data-v-782e77c0", Dice_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Dice_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Dice = (Dice_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Status.vue
-
-
-/* harmony default export */ var Status = ({
-    data() {
-        return {
-            speed: this.$store.getters.game.speed,
-            debug: false
-        };
-    },
-    computed: {
-        game() {
-            return this.$store.getters.game;
-        },
-        profile() {
-            return this.$store.getters.profile;
-        },
-        action() {
-            if (this.profile.color === null) {
-                return 'kies kleur';
-            }
-            return this.game.action;
-        }
-    },
-    methods: {
-        isAdmin() {
-            return this.game.admin === this.profile.id;
-        },
-        canStart() {
-            return !this.game.running; // && this.profile.color !== null;
-        },
-        canReset() {
-            return this.game.running;
-        },
-        startGame() {
-            socket_default.a.send('start');
-        },
-        resetGame() {
-            socket_default.a.send('reset');
-        },
-        setGameSpeed() {
-            socket_default.a.send('set_game_speed', this.speed);
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-cf723b6a","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Status.vue
-var Status_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.debug
-    ? _c("div", { staticClass: "status" }, [
-        _vm._v("\n\n    Action: " + _vm._s(_vm.action) + " "),
-        _c("br"),
-        _vm._v("\n    Turn: " + _vm._s(_vm.game.turn) + " "),
-        _c("br"),
-        _vm._v("\n\n    Player id: " + _vm._s(_vm.profile.id) + " "),
-        _c("br"),
-        _vm._v("\n    Game id: " + _vm._s(_vm.game.id) + " "),
-        _c("br"),
-        _vm._v("\n    Admin: " + _vm._s(_vm.game.admin) + " "),
-        _c("br"),
-        _vm._v("\n    Color: " + _vm._s(_vm.profile.color) + " "),
-        _c("br"),
-        _vm._v("\n    Picked: " + _vm._s(_vm.game.picked_pawn)),
-        _c("br"),
-        _vm._v("\n    Turn counter: " + _vm._s(_vm.game.counter.co) + " "),
-        _c("br"),
-        _vm._v("\n\n    Snelheid:\n    "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.speed,
-                expression: "speed"
-              }
-            ],
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.speed = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                function($event) {
-                  _vm.setGameSpeed()
-                }
-              ]
-            }
-          },
-          [
-            _c("option", { attrs: { value: "100" } }, [_vm._v("Snel")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "1000" } }, [_vm._v("Normaal")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "3000" } }, [_vm._v("Langzaam")])
-          ]
-        ),
-        _vm._v(" "),
-        _vm.isAdmin()
-          ? _c("div", [
-              _vm.canStart()
-                ? _c(
-                    "div",
-                    {
-                      staticStyle: {
-                        margin: "10px",
-                        cursor: "pointer",
-                        border: "1px solid black"
-                      },
-                      on: {
-                        click: function($event) {
-                          _vm.startGame()
-                        }
-                      }
-                    },
-                    [_vm._v("Start spel")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.canReset()
-                ? _c(
-                    "div",
-                    {
-                      staticStyle: {
-                        margin: "10px",
-                        cursor: "pointer",
-                        border: "1px solid black"
-                      },
-                      on: {
-                        click: function($event) {
-                          _vm.resetGame()
-                        }
-                      }
-                    },
-                    [_vm._v("Reset spel")]
-                  )
-                : _vm._e()
-            ])
-          : _vm._e()
-      ])
-    : _vm._e()
-}
-var Status_staticRenderFns = []
-Status_render._withStripped = true
-var Status_esExports = { render: Status_render, staticRenderFns: Status_staticRenderFns }
-/* harmony default export */ var components_Status = (Status_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-cf723b6a", Status_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Status.vue
-var Status_disposed = false
-var Status_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Status___vue_template_functional__ = false
-/* styles */
-var Status___vue_styles__ = null
-/* scopeId */
-var Status___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Status___vue_module_identifier__ = null
-var Status_Component = Status_normalizeComponent(
-  Status,
-  components_Status,
-  Status___vue_template_functional__,
-  Status___vue_styles__,
-  Status___vue_scopeId__,
-  Status___vue_module_identifier__
-)
-Status_Component.options.__file = "javascripts\\client\\components\\Status.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-cf723b6a", Status_Component.options)
-  } else {
-    hotAPI.reload("data-v-cf723b6a", Status_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Status_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Status = (Status_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Controls.vue
-
-
-/* harmony default export */ var Controls = ({
-    data() {
-        return {
-            speed: this.$store.getters.game.speed
-        };
-    },
-    computed: {
-        game() {
-            return this.$store.getters.game;
-        },
-        profile() {
-            return this.$store.getters.profile;
-        },
-        canStart() {
-            return !this.game.running;
-        },
-        canReset() {
-            return this.game.running;
-        }
-    },
-    methods: {
-        isAdmin() {
-            return this.game.admin === this.profile.id;
-        },
-        startGame() {
-            socket_default.a.send('start');
-        },
-        resetGame() {
-            socket_default.a.send('reset');
-        },
-        setGameSpeed() {
-            socket_default.a.send('set_game_speed', this.speed);
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-04862acf","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Controls.vue
-var Controls_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _vm.isAdmin()
-    ? _c("div", { staticClass: "controls" }, [
-        _vm.canStart
-          ? _c(
-              "span",
-              {
-                staticClass: "controls_button",
-                on: {
-                  click: function($event) {
-                    _vm.startGame()
-                  }
-                }
-              },
-              [_vm._v("Start the game")]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.canReset
-          ? _c(
-              "span",
-              {
-                staticClass: "controls_button",
-                on: {
-                  click: function($event) {
-                    _vm.resetGame()
-                  }
-                }
-              },
-              [_vm._v("Reset the game")]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.speed,
-                expression: "speed"
-              }
-            ],
-            staticClass: "controls_speed",
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.speed = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                function($event) {
-                  _vm.setGameSpeed()
-                }
-              ]
-            }
-          },
-          [
-            _c("option", { attrs: { value: "100" } }, [_vm._v("Speed: fast")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "1000" } }, [
-              _vm._v("Speed: normal")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "3000" } }, [_vm._v("Speed: slow")])
-          ]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "controls_pincode" }, [
-          _vm._v("Pincode: " + _vm._s(_vm.game.id))
-        ])
-      ])
-    : _vm._e()
-}
-var Controls_staticRenderFns = []
-Controls_render._withStripped = true
-var Controls_esExports = { render: Controls_render, staticRenderFns: Controls_staticRenderFns }
-/* harmony default export */ var components_Controls = (Controls_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-04862acf", Controls_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Controls.vue
-var Controls_disposed = false
-var Controls_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Controls___vue_template_functional__ = false
-/* styles */
-var Controls___vue_styles__ = null
-/* scopeId */
-var Controls___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Controls___vue_module_identifier__ = null
-var Controls_Component = Controls_normalizeComponent(
-  Controls,
-  components_Controls,
-  Controls___vue_template_functional__,
-  Controls___vue_styles__,
-  Controls___vue_scopeId__,
-  Controls___vue_module_identifier__
-)
-Controls_Component.options.__file = "javascripts\\client\\components\\Controls.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-04862acf", Controls_Component.options)
-  } else {
-    hotAPI.reload("data-v-04862acf", Controls_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Controls_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Controls = (Controls_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/WinnerPopup.vue
-
-
-/* harmony default export */ var WinnerPopup = ({
-    computed: {
-        game() {
-            return this.$store.getters.game;
-        },
-        profile() {
-            return this.$store.getters.profile;
-        },
-        nickname_winner() {
-            return this.$store.getters.nickname_winner;
-        }
-    },
-    methods: {
-        isAdmin() {
-            return this.game.admin === this.profile.id;
-        },
-        resetGame() {
-            socket_default.a.send('reset_game');
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1c7e8ba4","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/WinnerPopup.vue
-var WinnerPopup_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "popup-background" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "winner-popup" }, [
-      _vm._v(
-        "\n        De winnaar is " + _vm._s(_vm.nickname_winner) + "!\n        "
-      ),
-      _vm.isAdmin()
-        ? _c(
-            "div",
-            {
-              staticStyle: {
-                margin: "10px",
-                cursor: "pointer",
-                border: "1px solid black"
-              },
-              on: {
-                click: function($event) {
-                  _vm.resetGame()
-                }
-              }
-            },
-            [_vm._v("Reset spel")]
-          )
-        : _vm._e()
-    ])
-  ])
-}
-var WinnerPopup_staticRenderFns = []
-WinnerPopup_render._withStripped = true
-var WinnerPopup_esExports = { render: WinnerPopup_render, staticRenderFns: WinnerPopup_staticRenderFns }
-/* harmony default export */ var components_WinnerPopup = (WinnerPopup_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1c7e8ba4", WinnerPopup_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/WinnerPopup.vue
-var WinnerPopup_disposed = false
-var WinnerPopup_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var WinnerPopup___vue_template_functional__ = false
-/* styles */
-var WinnerPopup___vue_styles__ = null
-/* scopeId */
-var WinnerPopup___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var WinnerPopup___vue_module_identifier__ = null
-var WinnerPopup_Component = WinnerPopup_normalizeComponent(
-  WinnerPopup,
-  components_WinnerPopup,
-  WinnerPopup___vue_template_functional__,
-  WinnerPopup___vue_styles__,
-  WinnerPopup___vue_scopeId__,
-  WinnerPopup___vue_module_identifier__
-)
-WinnerPopup_Component.options.__file = "javascripts\\client\\components\\WinnerPopup.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1c7e8ba4", WinnerPopup_Component.options)
-  } else {
-    hotAPI.reload("data-v-1c7e8ba4", WinnerPopup_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    WinnerPopup_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_WinnerPopup = (WinnerPopup_Component.exports);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Game.vue
-
-
-
-
-
-
-
-
-
-/* harmony default export */ var Game = ({
-    components: {
-        Setup: client_components_Setup,
-        Board: client_components_Board,
-        Dice: client_components_Dice,
-        Controls: client_components_Controls,
-        Status: client_components_Status,
-        WinnerPopup: client_components_WinnerPopup
-    },
-    beforeCreate() {
-        this.$store.dispatch('setProfileId');
-    },
-    created() {
-        socket_default.a.recieve('setupGame', obj => {
-            this.$store.dispatch('setupGame', obj);
-        });
-        socket_default.a.recieve('updateGame', obj => {
-            this.$store.dispatch('updateGame', obj);
-        });
-        socket_default.a.recieve('updateProfile', obj => {
-            this.$store.dispatch('updateProfile', obj);
-        });
-        socket_default.a.recieve('updateProfileAfterReset', () => {
-            this.$store.dispatch('updateProfileAfterReset');
-        });
-        socket_default.a.recieve('updatePossibleMoves', arr => {
-            this.$store.dispatch('updatePossibleMoves', arr);
-        });
-    },
-    computed: {
-        game() {
-            return this.$store.getters.game;
-        }
-    }
-});
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-19b09a8b","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Game.vue
-var Game_render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "game" },
-    [
-      _vm.game.id === null
-        ? _c("setup")
-        : [
-            _c("controls"),
-            _vm._v(" "),
-            _c("board"),
-            _vm._v(" "),
-            _c("dice"),
-            _vm._v(" "),
-            _c("status"),
-            _vm._v(" "),
-            _vm.game.won !== null ? _c("winner-popup") : _vm._e()
-          ]
-    ],
-    2
-  )
-}
-var Game_staticRenderFns = []
-Game_render._withStripped = true
-var Game_esExports = { render: Game_render, staticRenderFns: Game_staticRenderFns }
-/* harmony default export */ var components_Game = (Game_esExports);
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-19b09a8b", Game_esExports)
-  }
-}
-// CONCATENATED MODULE: ./javascripts/client/components/Game.vue
-var Game_disposed = false
-var Game_normalizeComponent = __webpack_require__(1)
-/* script */
-
-
-/* template */
-
-/* template functional */
-var Game___vue_template_functional__ = false
-/* styles */
-var Game___vue_styles__ = null
-/* scopeId */
-var Game___vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var Game___vue_module_identifier__ = null
-var Game_Component = Game_normalizeComponent(
-  Game,
-  components_Game,
-  Game___vue_template_functional__,
-  Game___vue_styles__,
-  Game___vue_scopeId__,
-  Game___vue_module_identifier__
-)
-Game_Component.options.__file = "javascripts\\client\\components\\Game.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-19b09a8b", Game_Component.options)
-  } else {
-    hotAPI.reload("data-v-19b09a8b", Game_Component.options)
-  }
-  module.hot.dispose(function (data) {
-    Game_disposed = true
-  })
-})()}
-
-/* harmony default export */ var client_components_Game = __webpack_exports__["default"] = (Game_Component.exports);
-
-
-/***/ }),
+/* 27 */,
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9198,6 +7677,7 @@ exports.default = {
         state.game.thrown = obj.thrown;
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;
+        state.game.counter.co = obj.counter.co;
         state.game.speed = obj.speed;
         state.board = obj.board;
         state.players = obj.players;
@@ -9285,6 +7765,1542 @@ exports.default = {
         commit('updatePossibleMoves', arr);
     }
 };
+
+/***/ }),
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+
+// EXTERNAL MODULE: ./javascripts/client/utils/socket.js
+var socket = __webpack_require__(2);
+var socket_default = /*#__PURE__*/__webpack_require__.n(socket);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Setup.vue
+
+
+/* harmony default export */ var Setup = ({
+    data() {
+        return {
+            pincode: { value: null, validated: true },
+            nickname: { value: 'kees', validated: true }
+        };
+    },
+    mounted() {
+        this.$refs.nickname.focus();
+    },
+    methods: {
+        setup() {
+            socket_default.a.send('setup', this.nickname.value);
+        },
+        join() {
+            socket_default.a.send('join', {
+                pincode: this.pincode.value,
+                nickname: this.nickname.value
+            });
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-403721b4","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Setup.vue
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "setup" }, [
+    _c("div", { staticClass: "setup_row" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.nickname.value,
+            expression: "nickname.value"
+          }
+        ],
+        ref: "nickname",
+        staticClass: "setup_input",
+        attrs: { placeholder: "Nickname" },
+        domProps: { value: _vm.nickname.value },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.nickname, "value", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "setup_button", on: { click: _vm.setup } }, [
+        _vm._v("Setup game")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "setup_row" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.pincode.value,
+            expression: "pincode.value"
+          }
+        ],
+        staticClass: "setup_input",
+        attrs: { placeholder: "Pincode" },
+        domProps: { value: _vm.pincode.value },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.pincode, "value", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("span", { staticClass: "setup_button", on: { click: _vm.join } }, [
+        _vm._v("Join game")
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ var components_Setup = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-403721b4", esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Setup.vue
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  Setup,
+  components_Setup,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "javascripts\\client\\components\\Setup.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-403721b4", Component.options)
+  } else {
+    hotAPI.reload("data-v-403721b4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ var client_components_Setup = (Component.exports);
+
+// EXTERNAL MODULE: ./javascripts/common/points.js
+var points = __webpack_require__(51);
+var points_default = /*#__PURE__*/__webpack_require__.n(points);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Board/Point.vue
+
+
+/* harmony default export */ var Point = ({
+    props: ['point_id'],
+    data() {
+        return {
+            show_ids: false
+        };
+    },
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        },
+        profile() {
+            return this.$store.getters.profile;
+        },
+        points() {
+            return this.$store.getters.board.points;
+        },
+        possible_moves() {
+            return this.$store.getters.possible_moves;
+        },
+        row() {
+            return parseInt(this.point_id.split(',')[0]);
+        }
+    },
+    methods: {
+        isPuttableForPawn() {
+            return this.possible_moves.includes(this.point_id);
+        },
+        isPuttableForBarricade() {
+            return this.game.action === 'put_barricade' && this.game.turn === this.profile.color && this.row < 12 && this.points[this.point_id] === null;
+        },
+        isPickable() {
+            return this.points[this.point_id] === this.game.turn && this.game.turn === this.profile.color && this.game.action === 'pick_pawn';
+        },
+        isPicked() {
+            return this.point_id === this.game.picked_pawn && this.game.action === 'put_pawn';
+        },
+        makeClass() {
+            return {
+                '--blocked': this.points[this.point_id] === 'blocked',
+                '--blue': this.points[this.point_id] === 'blue',
+                '--red': this.points[this.point_id] === 'red',
+                '--yellow': this.points[this.point_id] === 'yellow',
+                '--green': this.points[this.point_id] === 'green',
+                '--pickable': this.isPickable(),
+                '--picked': this.isPicked(),
+                '--puttable': this.isPuttableForPawn(),
+                '--puttable-barricade': this.isPuttableForBarricade()
+            };
+        },
+        clickPawn() {
+            let action = '';
+            if (this.isPickable()) {
+                action = 'pick_pawn';
+            } else if (this.isPicked()) {
+                action = 'cancel_pawn';
+            } else if (this.isPuttableForPawn()) {
+                action = 'put_pawn';
+            } else if (this.isPuttableForBarricade()) {
+                action = 'put_barricade';
+            } else {
+                return false;
+            }
+            socket_default.a.send(action, this.point_id);
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-0cd1931e","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Board/Point.vue
+var Point_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "point",
+      class: _vm.makeClass(),
+      attrs: { point_id: _vm.point_id },
+      on: {
+        click: function($event) {
+          _vm.clickPawn()
+        }
+      }
+    },
+    [
+      _vm._v("\n    " + _vm._s(_vm.show_ids ? _vm.point_id : "") + "\n    "),
+      _vm.point_id === "0,8"
+        ? _c("div", { staticClass: "point_finish" }, [
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -top-left"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -top-right"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -bottom-left"
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "point_finish_quarter-circle -bottom-right"
+            })
+          ])
+        : _c("div")
+    ]
+  )
+}
+var Point_staticRenderFns = []
+Point_render._withStripped = true
+var Point_esExports = { render: Point_render, staticRenderFns: Point_staticRenderFns }
+/* harmony default export */ var Board_Point = (Point_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0cd1931e", Point_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Board/Point.vue
+var Point_disposed = false
+var Point_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Point___vue_template_functional__ = false
+/* styles */
+var Point___vue_styles__ = null
+/* scopeId */
+var Point___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Point___vue_module_identifier__ = null
+var Point_Component = Point_normalizeComponent(
+  Point,
+  Board_Point,
+  Point___vue_template_functional__,
+  Point___vue_styles__,
+  Point___vue_scopeId__,
+  Point___vue_module_identifier__
+)
+Point_Component.options.__file = "javascripts\\client\\components\\Board\\Point.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0cd1931e", Point_Component.options)
+  } else {
+    hotAPI.reload("data-v-0cd1931e", Point_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Point_disposed = true
+  })
+})()}
+
+/* harmony default export */ var components_Board_Point = (Point_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Board/Home.vue
+
+
+/* harmony default export */ var Home = ({
+    props: ['point_id'],
+    data() {
+        return {
+            colors: {
+                '14,2': 'red',
+                '14,6': 'green',
+                '14,10': 'yellow',
+                '14,14': 'blue'
+            }
+        };
+    },
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        },
+        profile() {
+            return this.$store.getters.profile;
+        },
+        pawns() {
+            return this.$store.getters.board.home[this.point_id];
+        },
+        color() {
+            return this.colors[this.point_id];
+        },
+        color_available() {
+            return !this.$store.getters.picked_colors.includes(this.color);
+        },
+        nickname() {
+            return this.$store.getters.nicknames_per_color[this.color];
+        },
+        is_players_turn() {
+            return this.game.turn === this.color;
+        }
+    },
+    methods: {
+        isAdmin() {
+            return this.game.admin === this.profile.id;
+        },
+        pickColor() {
+            socket_default.a.send('pick_color', this.color);
+        },
+        pickAI() {
+            socket_default.a.send('pick_ai', this.color);
+        },
+        makeClass() {
+            return { '--is-players-turn': this.is_players_turn };
+        },
+        isPickable() {
+            return this.pawns > 0 && this.is_players_turn && this.game.turn === this.profile.color && this.game.action === 'pick_pawn';
+        },
+        isPicked() {
+            return this.pawns > 0 && this.is_players_turn && this.game.action === 'put_pawn' && this.point_id === this.game.picked_pawn;
+        },
+        clickPawn() {
+            if (this.isPickable()) {
+                this.pickPawn();
+            }
+            if (this.isPicked()) {
+                this.cancelPawn();
+            }
+        },
+        pickPawn() {
+            socket_default.a.send('pick_pawn', this.point_id);
+        },
+        cancelPawn() {
+            socket_default.a.send('cancel_pawn', this.point_id);
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-2a103c8e","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Board/Home.vue
+var Home_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "home",
+      class: _vm.makeClass(),
+      attrs: { point_id: _vm.point_id, color: _vm.color }
+    },
+    [
+      _vm.color_available
+        ? [
+            _vm.profile.color === null
+              ? _c("div", {
+                  staticClass: "fa fa-user home_pick-color",
+                  on: { click: _vm.pickColor }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "fa fa-desktop home_pick-color",
+              on: { click: _vm.pickAI }
+            })
+          ]
+        : [
+            _c(
+              "div",
+              { staticClass: "home_pawns" },
+              _vm._l(_vm.pawns, function(index) {
+                return _c("span", { on: { click: _vm.clickPawn } })
+              })
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "home_nickname" }, [
+              _vm._v(_vm._s(_vm.nickname))
+            ])
+          ]
+    ],
+    2
+  )
+}
+var Home_staticRenderFns = []
+Home_render._withStripped = true
+var Home_esExports = { render: Home_render, staticRenderFns: Home_staticRenderFns }
+/* harmony default export */ var Board_Home = (Home_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2a103c8e", Home_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Board/Home.vue
+var Home_disposed = false
+var Home_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Home___vue_template_functional__ = false
+/* styles */
+var Home___vue_styles__ = null
+/* scopeId */
+var Home___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Home___vue_module_identifier__ = null
+var Home_Component = Home_normalizeComponent(
+  Home,
+  Board_Home,
+  Home___vue_template_functional__,
+  Home___vue_styles__,
+  Home___vue_scopeId__,
+  Home___vue_module_identifier__
+)
+Home_Component.options.__file = "javascripts\\client\\components\\Board\\Home.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2a103c8e", Home_Component.options)
+  } else {
+    hotAPI.reload("data-v-2a103c8e", Home_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Home_disposed = true
+  })
+})()}
+
+/* harmony default export */ var components_Board_Home = (Home_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Board/Row.vue
+
+
+
+
+/* harmony default export */ var Row = ({
+    components: {
+        Home: components_Board_Home,
+        Point: components_Board_Point
+    },
+    props: ['row', 'row_id'],
+    methods: {
+        isHome(row_id) {
+            return row_id === 14;
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1c73380a","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Board/Row.vue
+var Row_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "row", attrs: { row_id: _vm.row_id } },
+    [
+      _vm._l(_vm.row, function(i) {
+        return [
+          _vm.isHome(_vm.row_id)
+            ? _c("home", { attrs: { point_id: _vm.row_id + "," + i } })
+            : _c("point", { attrs: { point_id: _vm.row_id + "," + i } })
+        ]
+      })
+    ],
+    2
+  )
+}
+var Row_staticRenderFns = []
+Row_render._withStripped = true
+var Row_esExports = { render: Row_render, staticRenderFns: Row_staticRenderFns }
+/* harmony default export */ var Board_Row = (Row_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1c73380a", Row_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Board/Row.vue
+var Row_disposed = false
+var Row_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Row___vue_template_functional__ = false
+/* styles */
+var Row___vue_styles__ = null
+/* scopeId */
+var Row___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Row___vue_module_identifier__ = null
+var Row_Component = Row_normalizeComponent(
+  Row,
+  Board_Row,
+  Row___vue_template_functional__,
+  Row___vue_styles__,
+  Row___vue_scopeId__,
+  Row___vue_module_identifier__
+)
+Row_Component.options.__file = "javascripts\\client\\components\\Board\\Row.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1c73380a", Row_Component.options)
+  } else {
+    hotAPI.reload("data-v-1c73380a", Row_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Row_disposed = true
+  })
+})()}
+
+/* harmony default export */ var components_Board_Row = (Row_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Board/Board.vue
+
+
+
+
+/* harmony default export */ var Board = ({
+    components: {
+        Row: components_Board_Row
+    },
+    data() {
+        return {
+            points: points_default.a
+        };
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-3c9934c7","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Board/Board.vue
+var Board_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "board" },
+    _vm._l(_vm.points, function(row, row_id) {
+      return _c("row", { key: row_id, attrs: { row_id: row_id, row: row } })
+    })
+  )
+}
+var Board_staticRenderFns = []
+Board_render._withStripped = true
+var Board_esExports = { render: Board_render, staticRenderFns: Board_staticRenderFns }
+/* harmony default export */ var Board_Board = (Board_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3c9934c7", Board_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Board/Board.vue
+var Board_disposed = false
+var Board_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Board___vue_template_functional__ = false
+/* styles */
+var Board___vue_styles__ = null
+/* scopeId */
+var Board___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Board___vue_module_identifier__ = null
+var Board_Component = Board_normalizeComponent(
+  Board,
+  Board_Board,
+  Board___vue_template_functional__,
+  Board___vue_styles__,
+  Board___vue_scopeId__,
+  Board___vue_module_identifier__
+)
+Board_Component.options.__file = "javascripts\\client\\components\\Board\\Board.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3c9934c7", Board_Component.options)
+  } else {
+    hotAPI.reload("data-v-3c9934c7", Board_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Board_disposed = true
+  })
+})()}
+
+/* harmony default export */ var components_Board_Board = (Board_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Dice/Roll.vue
+
+/* harmony default export */ var Roll = ({
+    props: ['rolling'],
+    data() {
+        return {
+            number: null,
+            timeout: null
+        };
+    },
+    mounted() {
+        this.render();
+    },
+    beforeDestroy() {
+        clearTimeout(this.timeout);
+    },
+    methods: {
+        render() {
+            let self = this;
+            if (this.rolling) {
+                this.timeout = setTimeout(function () {
+                    self.number = Math.ceil(Math.random() * 6);
+                    self.render();
+                }, 20);
+            } else {
+                this.timeout = setTimeout(function () {
+                    self.$emit('rolled', self.number);
+                }, 1000);
+            }
+        },
+        makeClass() {
+            return 'roll_' + this.number;
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-abc5ae2e","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Dice/Roll.vue
+var Roll_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { class: _vm.makeClass() },
+    _vm._l(_vm.number, function(index) {
+      return _c("span")
+    })
+  )
+}
+var Roll_staticRenderFns = []
+Roll_render._withStripped = true
+var Roll_esExports = { render: Roll_render, staticRenderFns: Roll_staticRenderFns }
+/* harmony default export */ var Dice_Roll = (Roll_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-abc5ae2e", Roll_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Dice/Roll.vue
+var Roll_disposed = false
+var Roll_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Roll___vue_template_functional__ = false
+/* styles */
+var Roll___vue_styles__ = null
+/* scopeId */
+var Roll___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Roll___vue_module_identifier__ = null
+var Roll_Component = Roll_normalizeComponent(
+  Roll,
+  Dice_Roll,
+  Roll___vue_template_functional__,
+  Roll___vue_styles__,
+  Roll___vue_scopeId__,
+  Roll___vue_module_identifier__
+)
+Roll_Component.options.__file = "javascripts\\client\\components\\Dice\\Roll.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-abc5ae2e", Roll_Component.options)
+  } else {
+    hotAPI.reload("data-v-abc5ae2e", Roll_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Roll_disposed = true
+  })
+})()}
+
+/* harmony default export */ var components_Dice_Roll = (Roll_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Dice/Dice.vue
+
+
+
+
+/* harmony default export */ var Dice = ({
+    components: {
+        Roll: components_Dice_Roll
+    },
+    data() {
+        return {
+            rolling: true
+        };
+    },
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        },
+        profile() {
+            return this.$store.getters.profile;
+        },
+        thrown() {
+            return this.game.thrown === null ? 'nothing' : this.game.thrown;
+        }
+    },
+    methods: {
+        isRolling() {
+            return this.game.turn === this.profile.color && this.game.action === 'throw' && this.game.thrown === null;
+        },
+        stopRolling() {
+            if (this.game.turn === this.profile.color) {
+                this.rolling = false;
+            }
+        },
+        setRoll(thrown) {
+            this.rolling = true;
+            this.$store.dispatch('setThrown', thrown);
+            socket_default.a.send('set_thrown', thrown);
+        },
+        makeRollClass() {
+            return 'roll_' + this.thrown;
+        },
+        makeStatusClass() {
+            return { '-rolling': this.isRolling() };
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-a2ade1da","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Dice/Dice.vue
+var Dice_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "dice",
+      class: _vm.makeStatusClass(),
+      on: {
+        click: function($event) {
+          _vm.stopRolling()
+        }
+      }
+    },
+    [
+      _vm.isRolling()
+        ? _c("roll", {
+            attrs: { rolling: _vm.rolling },
+            on: { rolled: _vm.setRoll }
+          })
+        : _c(
+            "div",
+            { class: _vm.makeRollClass() },
+            _vm._l(_vm.thrown, function(index) {
+              return _vm.thrown !== null ? _c("span") : _c("span")
+            })
+          )
+    ],
+    1
+  )
+}
+var Dice_staticRenderFns = []
+Dice_render._withStripped = true
+var Dice_esExports = { render: Dice_render, staticRenderFns: Dice_staticRenderFns }
+/* harmony default export */ var Dice_Dice = (Dice_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a2ade1da", Dice_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Dice/Dice.vue
+var Dice_disposed = false
+var Dice_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Dice___vue_template_functional__ = false
+/* styles */
+var Dice___vue_styles__ = null
+/* scopeId */
+var Dice___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Dice___vue_module_identifier__ = null
+var Dice_Component = Dice_normalizeComponent(
+  Dice,
+  Dice_Dice,
+  Dice___vue_template_functional__,
+  Dice___vue_styles__,
+  Dice___vue_scopeId__,
+  Dice___vue_module_identifier__
+)
+Dice_Component.options.__file = "javascripts\\client\\components\\Dice\\Dice.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a2ade1da", Dice_Component.options)
+  } else {
+    hotAPI.reload("data-v-a2ade1da", Dice_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Dice_disposed = true
+  })
+})()}
+
+/* harmony default export */ var components_Dice_Dice = (Dice_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Status.vue
+
+
+/* harmony default export */ var Status = ({
+    data() {
+        return {
+            speed: this.$store.getters.game.speed,
+            debug: false
+        };
+    },
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        },
+        profile() {
+            return this.$store.getters.profile;
+        },
+        action() {
+            if (this.profile.color === null) {
+                return 'kies kleur';
+            }
+            return this.game.action;
+        }
+    },
+    methods: {
+        isAdmin() {
+            return this.game.admin === this.profile.id;
+        },
+        canStart() {
+            return !this.game.running; // && this.profile.color !== null;
+        },
+        canReset() {
+            return this.game.running;
+        },
+        startGame() {
+            socket_default.a.send('start');
+        },
+        resetGame() {
+            socket_default.a.send('reset');
+        },
+        setGameSpeed() {
+            socket_default.a.send('set_game_speed', this.speed);
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-cf723b6a","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Status.vue
+var Status_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.debug
+    ? _c("div", { staticClass: "status" }, [
+        _vm._v("\n\n    Action: " + _vm._s(_vm.action) + " "),
+        _c("br"),
+        _vm._v("\n    Turn: " + _vm._s(_vm.game.turn) + " "),
+        _c("br"),
+        _vm._v("\n\n    Player id: " + _vm._s(_vm.profile.id) + " "),
+        _c("br"),
+        _vm._v("\n    Game id: " + _vm._s(_vm.game.id) + " "),
+        _c("br"),
+        _vm._v("\n    Admin: " + _vm._s(_vm.game.admin) + " "),
+        _c("br"),
+        _vm._v("\n    Color: " + _vm._s(_vm.profile.color) + " "),
+        _c("br"),
+        _vm._v("\n    Picked: " + _vm._s(_vm.game.picked_pawn)),
+        _c("br"),
+        _vm._v("\n    Turn counter: " + _vm._s(_vm.game.counter.co) + " "),
+        _c("br"),
+        _vm._v("\n\n    Snelheid:\n    "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.speed,
+                expression: "speed"
+              }
+            ],
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.speed = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+                function($event) {
+                  _vm.setGameSpeed()
+                }
+              ]
+            }
+          },
+          [
+            _c("option", { attrs: { value: "100" } }, [_vm._v("Snel")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1000" } }, [_vm._v("Normaal")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3000" } }, [_vm._v("Langzaam")])
+          ]
+        ),
+        _vm._v(" "),
+        _vm.isAdmin()
+          ? _c("div", [
+              _vm.canStart()
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        margin: "10px",
+                        cursor: "pointer",
+                        border: "1px solid black"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.startGame()
+                        }
+                      }
+                    },
+                    [_vm._v("Start spel")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.canReset()
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: {
+                        margin: "10px",
+                        cursor: "pointer",
+                        border: "1px solid black"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.resetGame()
+                        }
+                      }
+                    },
+                    [_vm._v("Reset spel")]
+                  )
+                : _vm._e()
+            ])
+          : _vm._e()
+      ])
+    : _vm._e()
+}
+var Status_staticRenderFns = []
+Status_render._withStripped = true
+var Status_esExports = { render: Status_render, staticRenderFns: Status_staticRenderFns }
+/* harmony default export */ var components_Status = (Status_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-cf723b6a", Status_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Status.vue
+var Status_disposed = false
+var Status_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Status___vue_template_functional__ = false
+/* styles */
+var Status___vue_styles__ = null
+/* scopeId */
+var Status___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Status___vue_module_identifier__ = null
+var Status_Component = Status_normalizeComponent(
+  Status,
+  components_Status,
+  Status___vue_template_functional__,
+  Status___vue_styles__,
+  Status___vue_scopeId__,
+  Status___vue_module_identifier__
+)
+Status_Component.options.__file = "javascripts\\client\\components\\Status.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cf723b6a", Status_Component.options)
+  } else {
+    hotAPI.reload("data-v-cf723b6a", Status_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Status_disposed = true
+  })
+})()}
+
+/* harmony default export */ var client_components_Status = (Status_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Controls.vue
+
+
+/* harmony default export */ var Controls = ({
+    data() {
+        return {
+            speed: this.$store.getters.game.speed
+        };
+    },
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        },
+        profile() {
+            return this.$store.getters.profile;
+        },
+        canStart() {
+            return !this.game.running;
+        },
+        canReset() {
+            return this.game.running;
+        }
+    },
+    methods: {
+        isAdmin() {
+            return this.game.admin === this.profile.id;
+        },
+        startGame() {
+            socket_default.a.send('start');
+        },
+        resetGame() {
+            socket_default.a.send('reset');
+        },
+        setGameSpeed() {
+            socket_default.a.send('set_game_speed', this.speed);
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-04862acf","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Controls.vue
+var Controls_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.isAdmin()
+    ? _c("div", { staticClass: "controls" }, [
+        _vm.canStart
+          ? _c(
+              "span",
+              {
+                staticClass: "controls_button",
+                on: {
+                  click: function($event) {
+                    _vm.startGame()
+                  }
+                }
+              },
+              [_vm._v("Start the game")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.canReset
+          ? _c(
+              "span",
+              {
+                staticClass: "controls_button",
+                on: {
+                  click: function($event) {
+                    _vm.resetGame()
+                  }
+                }
+              },
+              [_vm._v("Reset the game")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.speed,
+                expression: "speed"
+              }
+            ],
+            staticClass: "controls_speed",
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.speed = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                },
+                function($event) {
+                  _vm.setGameSpeed()
+                }
+              ]
+            }
+          },
+          [
+            _c("option", { attrs: { value: "100" } }, [_vm._v("Speed: fast")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "1000" } }, [
+              _vm._v("Speed: normal")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3000" } }, [_vm._v("Speed: slow")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "controls_pincode" }, [
+          _vm._v("Pincode: " + _vm._s(_vm.game.id))
+        ])
+      ])
+    : _vm._e()
+}
+var Controls_staticRenderFns = []
+Controls_render._withStripped = true
+var Controls_esExports = { render: Controls_render, staticRenderFns: Controls_staticRenderFns }
+/* harmony default export */ var components_Controls = (Controls_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-04862acf", Controls_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Controls.vue
+var Controls_disposed = false
+var Controls_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Controls___vue_template_functional__ = false
+/* styles */
+var Controls___vue_styles__ = null
+/* scopeId */
+var Controls___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Controls___vue_module_identifier__ = null
+var Controls_Component = Controls_normalizeComponent(
+  Controls,
+  components_Controls,
+  Controls___vue_template_functional__,
+  Controls___vue_styles__,
+  Controls___vue_scopeId__,
+  Controls___vue_module_identifier__
+)
+Controls_Component.options.__file = "javascripts\\client\\components\\Controls.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-04862acf", Controls_Component.options)
+  } else {
+    hotAPI.reload("data-v-04862acf", Controls_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Controls_disposed = true
+  })
+})()}
+
+/* harmony default export */ var client_components_Controls = (Controls_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/WinnerPopup.vue
+
+
+/* harmony default export */ var WinnerPopup = ({
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        },
+        profile() {
+            return this.$store.getters.profile;
+        },
+        nickname_winner() {
+            return this.$store.getters.nickname_winner;
+        }
+    },
+    methods: {
+        isAdmin() {
+            return this.game.admin === this.profile.id;
+        },
+        resetGame() {
+            socket_default.a.send('reset');
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-1c7e8ba4","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/WinnerPopup.vue
+var WinnerPopup_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "popup-background" }),
+    _vm._v(" "),
+    _c("div", { staticClass: "winner-popup" }, [
+      _c("p", { staticClass: "winner-popup_text" }, [
+        _vm._v("De winnaar is " + _vm._s(_vm.nickname_winner) + "!")
+      ]),
+      _vm._v(" "),
+      _vm.isAdmin()
+        ? _c(
+            "div",
+            {
+              staticClass: "winner-popup_button",
+              on: {
+                click: function($event) {
+                  _vm.resetGame()
+                }
+              }
+            },
+            [_vm._v("Reset spel")]
+          )
+        : _vm._e()
+    ])
+  ])
+}
+var WinnerPopup_staticRenderFns = []
+WinnerPopup_render._withStripped = true
+var WinnerPopup_esExports = { render: WinnerPopup_render, staticRenderFns: WinnerPopup_staticRenderFns }
+/* harmony default export */ var components_WinnerPopup = (WinnerPopup_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1c7e8ba4", WinnerPopup_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/WinnerPopup.vue
+var WinnerPopup_disposed = false
+var WinnerPopup_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var WinnerPopup___vue_template_functional__ = false
+/* styles */
+var WinnerPopup___vue_styles__ = null
+/* scopeId */
+var WinnerPopup___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var WinnerPopup___vue_module_identifier__ = null
+var WinnerPopup_Component = WinnerPopup_normalizeComponent(
+  WinnerPopup,
+  components_WinnerPopup,
+  WinnerPopup___vue_template_functional__,
+  WinnerPopup___vue_styles__,
+  WinnerPopup___vue_scopeId__,
+  WinnerPopup___vue_module_identifier__
+)
+WinnerPopup_Component.options.__file = "javascripts\\client\\components\\WinnerPopup.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1c7e8ba4", WinnerPopup_Component.options)
+  } else {
+    hotAPI.reload("data-v-1c7e8ba4", WinnerPopup_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    WinnerPopup_disposed = true
+  })
+})()}
+
+/* harmony default export */ var client_components_WinnerPopup = (WinnerPopup_Component.exports);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./javascripts/client/components/Game.vue
+
+
+
+
+
+
+
+
+
+/* harmony default export */ var Game = ({
+    components: {
+        Setup: client_components_Setup,
+        Board: components_Board_Board,
+        Dice: components_Dice_Dice,
+        Controls: client_components_Controls,
+        Status: client_components_Status,
+        WinnerPopup: client_components_WinnerPopup
+    },
+    beforeCreate() {
+        this.$store.dispatch('setProfileId');
+    },
+    created() {
+        socket_default.a.recieve('setupGame', obj => {
+            this.$store.dispatch('setupGame', obj);
+        });
+        socket_default.a.recieve('updateGame', obj => {
+            this.$store.dispatch('updateGame', obj);
+        });
+        socket_default.a.recieve('updateProfile', obj => {
+            this.$store.dispatch('updateProfile', obj);
+        });
+        socket_default.a.recieve('updateProfileAfterReset', () => {
+            this.$store.dispatch('updateProfileAfterReset');
+        });
+        socket_default.a.recieve('updatePossibleMoves', arr => {
+            this.$store.dispatch('updatePossibleMoves', arr);
+        });
+    },
+    computed: {
+        game() {
+            return this.$store.getters.game;
+        }
+    }
+});
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-19b09a8b","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./javascripts/client/components/Game.vue
+var Game_render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "game" },
+    [
+      _vm.game.id === null
+        ? _c("setup")
+        : [
+            _c("controls"),
+            _vm._v(" "),
+            _c("board"),
+            _vm._v(" "),
+            _c("dice"),
+            _vm._v(" "),
+            _c("status"),
+            _vm._v(" "),
+            _vm.game.won !== null ? _c("winner-popup") : _vm._e()
+          ]
+    ],
+    2
+  )
+}
+var Game_staticRenderFns = []
+Game_render._withStripped = true
+var Game_esExports = { render: Game_render, staticRenderFns: Game_staticRenderFns }
+/* harmony default export */ var components_Game = (Game_esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-19b09a8b", Game_esExports)
+  }
+}
+// CONCATENATED MODULE: ./javascripts/client/components/Game.vue
+var Game_disposed = false
+var Game_normalizeComponent = __webpack_require__(1)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var Game___vue_template_functional__ = false
+/* styles */
+var Game___vue_styles__ = null
+/* scopeId */
+var Game___vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var Game___vue_module_identifier__ = null
+var Game_Component = Game_normalizeComponent(
+  Game,
+  components_Game,
+  Game___vue_template_functional__,
+  Game___vue_styles__,
+  Game___vue_scopeId__,
+  Game___vue_module_identifier__
+)
+Game_Component.options.__file = "javascripts\\client\\components\\Game.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-19b09a8b", Game_Component.options)
+  } else {
+    hotAPI.reload("data-v-19b09a8b", Game_Component.options)
+  }
+  module.hot.dispose(function (data) {
+    Game_disposed = true
+  })
+})()}
+
+/* harmony default export */ var client_components_Game = __webpack_exports__["default"] = (Game_Component.exports);
+
 
 /***/ })
 ],[24]);

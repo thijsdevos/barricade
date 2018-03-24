@@ -1,7 +1,7 @@
 <script>
     import Setup from './Setup.vue';
-    import Board from './Board.vue';
-    import Dice from './Dice.vue';
+    import Board from './Board/Board.vue';
+    import Dice from './Dice/Dice.vue';
     import Status from './Status.vue';
     import Controls from './Controls.vue';
     import WinnerPopup from './WinnerPopup.vue';

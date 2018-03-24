@@ -1,6 +1,6 @@
 <script>
     import Roll from './Roll.vue';
-    import Socket from '../utils/socket';
+    import Socket from '../../utils/socket';
 
     export default {
         components: {

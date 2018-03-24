@@ -20,16 +20,7 @@
 }
 
 .setup_button {
-  padding: 12px 15px;
-  font-size: 16px;
-  background: #2db4ff;
-  color: #ffffff;
-  border-radius: 10px;
-  cursor: pointer;
-  text-align: center;
+  @extend .button;
   min-width: 120px;
   float: left;
-  &:hover {
-    background: #0b47f1;
-  }
 }

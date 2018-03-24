@@ -1,5 +1,5 @@
 <script>
-    import Socket from '../utils/socket';
+    import Socket from '../../utils/socket';
     export default {
         props: ['point_id'],
         data() {
@@ -55,7 +55,8 @@
                 return this.pawns > 0 && this.is_players_turn && this.game.action === 'put_pawn' && this.point_id === this.game.picked_pawn;
             },
             clickPawn() {
-                this.isPickable() ? this.pickPawn() : this.cancelPawn();
+                if(this.isPickable()) { this.pickPawn() }
+                if(this.isPicked()) {this.cancelPawn() }
             },
             pickPawn() {
                 Socket.send('pick_pawn', this.point_id);
@@ -73,7 +74,6 @@
             <div v-if="profile.color === null" v-on:click="pickColor" class="fa fa-user home_pick-color"></div>
             <div v-on:click="pickAI" class="fa fa-desktop home_pick-color"></div>
         </template>
-
         <template v-else>
             <div class="home_pawns">
                 <span v-for="index in pawns" v-on:click="clickPawn"></span>

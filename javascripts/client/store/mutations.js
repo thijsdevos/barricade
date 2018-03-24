@@ -11,6 +11,7 @@ export default {
         state.game.thrown = obj.thrown;
         state.game.picked_pawn = obj.picked_pawn;
         state.game.won = obj.won;
+        state.game.counter.co = obj.counter.co;
         state.game.speed = obj.speed;
         state.board = obj.board;
         state.players = obj.players;

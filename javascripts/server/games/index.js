@@ -73,9 +73,15 @@ module.exports = new function() {
         return typeof players[playerId(client)] !== 'undefined';
     }
 
+    function resetPlayersSocketIdAfterReconnect(client) {
+        game(client).updatePlayer(playerId(client), 'client_id', client.id);
+    }
+
     this.connect = function(client) {
         if(playerExists(client)) {
+            resetPlayersSocketIdAfterReconnect(client);
             emitSetupGame(client);
+            emitProfileUpdate(client);
         }
 
         const player_id = playerId(client);
