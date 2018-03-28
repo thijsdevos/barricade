@@ -1,7 +1,7 @@
 .dice {
   position: absolute;
-  right: 0;
-  top: 7px;
+  right: -20px;
+  top: 22.5px;
   box-shadow: 0 0 2px 1px #000000;
   border-radius: 10px;
   width: 40px;
@@ -24,8 +24,8 @@
 
 .dice.-rolling {
   top: 0;
-  right: 0;
-  bottom: 0;
+  right: -50px;
+  bottom: -25px;
   left: 0;
   background: rgba(255,255,255,0.8);
   border-radius: 0;

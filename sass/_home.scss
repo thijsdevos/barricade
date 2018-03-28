@@ -2,8 +2,11 @@
   position: absolute;
   transform: translate(-50%);
   width: 20%;
-  top: 20px;
-  padding-bottom: 10px;
+  top: 0;
+  background: #F6EED7;
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .home_pawns {
@@ -17,6 +20,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  box-shadow: 0 0 2px 1px #000000;
 }
 
 .--is-players-turn .home_pawns span {
@@ -33,6 +37,7 @@
 
 .--is-players-turn {
   border-bottom: 5px solid black;
+  background: lighten(#B5A075, 20%);
 }
 
 .home[color="red"] {
@@ -84,15 +89,16 @@
   font-size: 20px;
   padding: 20px;
   border-radius: 50%;
+  box-shadow: 0 0 2px 1px #000000;
   
   &:first-child {
     float: left;
-    margin-left: 20%;
+    margin-left: 12%;
   }
   
   &:last-child {
     float: right;
-    margin-right: 20%;
+    margin-right: 12%;
   }
 }
 

@@ -20,13 +20,14 @@ input, textarea {
 .game {
   width: calc(100% - 750px);
   position: relative;
-  height: 995px;
-  margin: 10px;
+  height: 985px;
 }
 
 .board {
   position: relative;
   height: 100%;
+  top: 22.5px;
+  left: 22.5px;
 }
 
 .button {
@@ -37,6 +38,7 @@ input, textarea {
   border-radius: 10px;
   cursor: pointer;
   text-align: center;
+  box-shadow: 0 0 2px 1px #000000;
   &:hover {
     background: #0b47f1;
   }

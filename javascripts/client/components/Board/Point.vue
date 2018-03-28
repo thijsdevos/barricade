@@ -4,7 +4,8 @@
         props: ['point_id'],
         data() {
             return {
-                show_ids: false
+                show_ids: false,
+                kill_animation: false
             }
         },
         computed: {
@@ -37,17 +38,25 @@
             isPicked() {
                 return this.point_id === this.game.picked_pawn && this.game.action === 'put_pawn';
             },
+            isFilled() {
+                return this.points[this.point_id] === 'blue' || this.points[this.point_id] === 'red' || this.points[this.point_id] === 'yellow' || this.points[this.point_id] === 'green';
+            },
             makeClass() {
                 return {
-                    '--blocked': this.points[this.point_id] === 'blocked',
-                    '--blue': this.points[this.point_id] === 'blue',
-                    '--red': this.points[this.point_id] === 'red',
-                    '--yellow': this.points[this.point_id] === 'yellow',
-                    '--green': this.points[this.point_id] === 'green',
-                    '--pickable': this.isPickable(),
-                    '--picked': this.isPicked(),
-                    '--puttable': this.isPuttableForPawn(),
-                    '--puttable-barricade': this.isPuttableForBarricade(),
+                    '-blocked': this.points[this.point_id] === 'blocked',
+                    '-blue': this.points[this.point_id] === 'blue',
+                    '-red': this.points[this.point_id] === 'red',
+                    '-yellow': this.points[this.point_id] === 'yellow',
+                    '-green': this.points[this.point_id] === 'green',
+                    '-pickable': this.isPickable(),
+                    '-picked': this.isPicked(),
+                    '-puttable': this.isPuttableForPawn() && !this.kill_animation,
+                    '-puttable-barricade': this.isPuttableForBarricade(),
+                    '-kill-animation': this.kill_animation,
+                    '-killer-red': this.kill_animation && this.game.turn === 'red',
+                    '-killer-blue': this.kill_animation && this.game.turn === 'blue',
+                    '-killer-yellow': this.kill_animation && this.game.turn === 'yellow',
+                    '-killer-green': this.kill_animation && this.game.turn === 'green'
                 };
             },
             clickPawn() {
@@ -56,14 +65,26 @@
                     action = 'pick_pawn';
                 } else if(this.isPicked()) {
                     action = 'cancel_pawn';
-                } else if(this.isPuttableForPawn()) {
-                    action = 'put_pawn';
                 } else if(this.isPuttableForBarricade()) {
                     action = 'put_barricade';
+                } else if(this.isPuttableForPawn()) {
+                    action = 'put_pawn';
+
+                    if(this.isFilled()) {
+                        this.killAnimation();
+                        return false;
+                    }
                 } else {
                     return false;
                 }
                 Socket.send(action, this.point_id);
+            },
+            killAnimation() {
+                this.kill_animation = true;
+                setTimeout(() => {
+                    this.kill_animation = false;
+                    Socket.send('put_pawn', this.point_id);
+                }, 500);
             }
         }
     }

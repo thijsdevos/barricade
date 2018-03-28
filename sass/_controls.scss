@@ -1,7 +1,7 @@
 .controls {
   position: absolute;
-  top: 7px;
-  left: 0;
+  top: 22.5px;
+  left: 22.5px;
   z-index: 10;
 }
 
@@ -15,10 +15,11 @@
 }
 
 .controls_speed {
-  padding: 10px 15px;
+  padding: 12px 15px;
   font-size: 16px;
   border-radius: 10px;
-  border: 1px solid #cccccc;
+  border: 0;
+  box-shadow: 0 0 2px 1px #000000;
   float: left;
   margin-right: 14px;
 }
