@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import Game from './components/Game.vue';
 import Store from './store';
+import Game from './components/Game.vue';
 
 new Vue({
     el: '#app',
-    components: { Game },
-    store: Store
+    store: Store,
+    components: { Game }
 });

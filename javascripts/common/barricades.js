@@ -1,4 +1,3 @@
-//export default
 module.exports = [
     '1,8',
     '3,8',

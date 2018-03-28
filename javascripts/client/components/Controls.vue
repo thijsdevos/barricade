@@ -14,10 +14,10 @@
                 return this.$store.getters.profile;
             },
             canStart() {
-                return !this.game.running;
+                return !this.game.running && this.isAdmin();
             },
             canReset() {
-                return this.game.running;
+                return this.game.running && this.isAdmin();
             }
         },
         methods: {
@@ -38,11 +38,11 @@
 </script>
 
 <template>
-    <div class="controls" v-if="isAdmin()">
+    <div class="controls">
         <span v-if="canStart" v-on:click="startGame()" class="controls_button">Start the game</span>
         <span v-if="canReset" v-on:click="resetGame()" class="controls_button">Reset the game</span>
 
-        <select class="controls_speed" v-model="speed" v-on:change="setGameSpeed()">
+        <select v-if="isAdmin()" class="controls_speed" v-model="speed" v-on:change="setGameSpeed()">
             <option value="100">Speed: fast</option>
             <option value="1000">Speed: normal</option>
             <option value="3000">Speed: slow</option>
