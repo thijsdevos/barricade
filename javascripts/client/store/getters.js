@@ -36,5 +36,8 @@ export default {
     },
     nickname_winner(state) {
         return nickNamesPerColor(state)[state.game.won];
+    },
+    chat(state) {
+        return state.chat;
     }
 }

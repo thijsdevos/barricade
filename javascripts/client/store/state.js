@@ -35,6 +35,12 @@ export default {
             admin: false,
             nickname: null
         }
-    }
+    },
+    chat: [
+        {
+            nickname: null,
+            text: null
+        }
+    ]
 }
 

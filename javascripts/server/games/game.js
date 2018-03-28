@@ -26,6 +26,7 @@ const Game = function(id, player_id) {
     this.point_id_to_win = '0,8';
     this.converter_colors_point_id = {red: '14,2', green: '14,6', yellow: '14,10', blue: '14,14'};
     this.home_points = {red: '14,2', green: '14,6', yellow: '14,10', blue: '14,14'};
+    this.chat = [];
 
     this.get = () => {
         return {
@@ -96,9 +97,10 @@ const Game = function(id, player_id) {
         }
     };
 
-    this.reset = (players) => {
+    this.reset = (players, chat) => {
         this.running = false;
         this.players = players;
+        this.chat = chat;
         this.won = null;
         this.players.forEach(player => {
             return player.color = null;
@@ -295,6 +297,19 @@ const Game = function(id, player_id) {
                 Socket.to(player.client_id).emit('updateGame', this.get());
             }
         });
+    };
+
+    this.getChat = () => {
+        return this.chat;
+    };
+
+    this.getChatLastMessage = () => {
+        let chat = this.chat;
+        return this.chat[this.chat.length - 1];
+    };
+
+    this.addChatMessage = (message) => {
+        this.chat.push(message);
     };
 };
 

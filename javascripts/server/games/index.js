@@ -45,6 +45,10 @@ module.exports = new function() {
         return games[gameId(client)];
     }
 
+    function gameByClient(client) {
+        return games[gameId(client)];
+    }
+
     function emitGameUpdate(client) {
         game(client).players.forEach((player) => {
             if(player.type === 'human') {
@@ -61,12 +65,26 @@ module.exports = new function() {
         });
     }
 
+    function emitChatUpdate(client) {
+        const game = gameByClient(client);
+        const lastChatMessage = game.getChatLastMessage();
+        game.players.forEach((player) => {
+            if(player.type === 'human') {
+                Socket.to(player.client_id).emit('updateChat', lastChatMessage);
+            }
+        });
+    }
+
     function emitSetupGame(client) {
         client.emit('setupGame', game(client).get());
     }
 
     function emitProfileUpdate(client) {
         client.emit('updateProfile', game(client).getPlayer(playerId(client)));
+    }
+
+    function emitFullChat(client) {
+        client.emit('setupChat', game(client).getChat());
     }
 
     function playerExists(client) {
@@ -82,6 +100,7 @@ module.exports = new function() {
             resetPlayersSocketIdAfterReconnect(client);
             emitSetupGame(client);
             emitProfileUpdate(client);
+            emitFullChat(client);
         }
 
         const player_id = playerId(client);
@@ -96,13 +115,15 @@ module.exports = new function() {
         const player_id = playerId(client);
         const game_id = gameId(client);
 
-        timeouts[player_id] = setTimeout(() => {
-            removePlayer(client);
-            if(games[game_id] && games[game_id].players.length === 0) {
-                delete games[game_id];
-            }
-            delete timeouts[player_id];
-        }, 5000);
+        if(game_id) {
+            timeouts[player_id] = setTimeout(() => {
+                removePlayer(client);
+                if (games[game_id] && games[game_id].players.length === 0) {
+                    delete games[game_id];
+                }
+                delete timeouts[player_id];
+            }, 5000);
+        }
     };
 
     this.setup = function(nickname) {
@@ -112,11 +133,14 @@ module.exports = new function() {
         createGame(id, player_id);
         addPlayer(client, id, player_id, nickname, 'human');
         emitSetupGame(client);
+        emitProfileUpdate(this);
     };
 
     this.join = function(obj) {
         addPlayer(this, obj.pincode, playerId(this), obj.nickname, 'human');
         emitSetupGame(this);
+        emitFullChat(this);
+        emitProfileUpdate(this);
     };
 
     this.start = function() {
@@ -128,8 +152,9 @@ module.exports = new function() {
         const game_id = game(this).id;
         const players = game(this).players;
         const admin_id = game(this).admin;
+        const chat = game(this).chat;
         createGame(game_id, admin_id);
-        game(this).reset(players);
+        game(this).reset(players, chat);
         emitGameUpdate(this);
         emitProfileUpdate(this);
     };
@@ -181,6 +206,11 @@ module.exports = new function() {
     this.setPutBarricade = function(point_id) {
         game(this).setPutBarricade(point_id);
         emitGameUpdate(this);
+    };
+
+    this.message = function(message) {
+        game(this).addChatMessage(message);
+        emitChatUpdate(this);
     };
 
 };

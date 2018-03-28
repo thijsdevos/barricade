@@ -24,6 +24,12 @@ export default {
     },
     updatePossibleMoves({ commit }, arr) {
         commit('updatePossibleMoves', arr);
+    },
+    setupChat({ commit }, obj) {
+        commit('setupChat', obj);
+    },
+    updateChat({ commit }, obj) {
+        commit('updateChat', obj);
     }
 }
 

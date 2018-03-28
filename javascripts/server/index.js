@@ -23,6 +23,7 @@ const App = new function() {
         client.on('cancel_pawn', Games.cancelPickedPawn);
         client.on('put_pawn', Games.setPutPawn);
         client.on('put_barricade', Games.setPutBarricade);
+        client.on('send_message', Games.message);
     };
 };
 

@@ -1,0 +1,52 @@
+.chat {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: darken(#ffffff, 5%);
+  width: 700px;
+  box-shadow: inset 7px 0 9px -7px #000000;
+}
+
+.chat_messages {
+  position: absolute;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow-x: auto;
+}
+
+.chat_message {
+  padding: 10px 20px;
+}
+
+.chat_message_nickname {
+  font-weight: bold;
+}
+
+.chat_send-message {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  padding: 20px;
+}
+
+.chat_send-message_input {
+  padding: 20px;
+  border-radius: 10px;
+  border: 0;
+  float: left;
+  margin-right: 20px;
+  width: calc(100% - 100px);
+  box-shadow: 0 0 2px 1px #000000;
+}
+
+.chat_send-message_button {
+  @extend .button;
+  float: left;
+  padding: 20px;
+  width: 80px;
+}

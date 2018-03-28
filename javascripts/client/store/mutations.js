@@ -35,9 +35,16 @@ export default {
         state.possible_moves = arr;
     },
     updateProfile(state, obj) {
+        state.profile.nickname = obj.nickname;
         state.profile.color = obj.color;
     },
     updateProfileAfterReset(state) {
         state.profile.color = null;
+    },
+    setupChat(state, chat) {
+        state.chat = chat;
+    },
+    updateChat(state, message) {
+        state.chat.push(message);
     }
 }
